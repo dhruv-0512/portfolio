@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dhruv H</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #EDEEF0;
+      --bg-card: #F4F5F7;
+      --text: #1C1E22;
+      --text-muted: #6E7380;
+      --border: #C4C7CE;
+      --red: #5C7A5F;
+      --dark: #1C1E22;
+      --dark-text: #E8E9EC;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Instrument Serif', serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.35;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    /* HERO */
+
+    header {
+      padding: 80px 0 64px;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(80px, 12vw, 148px);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      position: relative;
+      display: inline-block;
+    }
+
+    .name::after {
+      content: '';
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--red);
+      position: absolute;
+      right: -12px;
+      bottom: 14px;
+    }
+
+    .engineer-label {
+      margin-top: 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+    }
+
+    .hero-meta {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 20px;
+      border: 1.5px solid var(--text);
+      color: var(--text);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all .18s ease;
+    }
+
+    .btn:hover {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .btn-red {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .btn-red:hover {
+      background: var(--red);
+      color: white;
+    }
+
+    /* SECTION */
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 56px 0 40px;
+      border-bottom: 1.5px solid var(--border);
+      margin-bottom: 48px;
+    }
+
+    .section-title,
+    .section-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* PROJECTS */
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: var(--border);
+      border: 1.5px solid var(--border);
+      margin-bottom: 80px;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      transition: background .2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .2s ease;
+    }
+
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .project-card:hover {
+      background: white;
+    }
+
+    .project-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--border);
+      margin-bottom: 18px;
+    }
+
+    .project-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      margin-bottom: 14px;
+      min-height: 34px;
+      /* Alignment fix */
+    }
+
+    .project-desc {
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 22px;
+      flex: 1;
+      min-height: 85px;
+      /* Ensures descriptions align across row */
+    }
+
+    .project-stat {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--red);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 7px 0;
+      margin-bottom: 20px;
+      min-height: 42px;
+      /* Allows for 2 lines if text wraps, keeping row aligned */
+      display: flex;
+      align-items: center;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 26px;
+      min-height: 60px;
+      /* Ensures tags align across row even if wrapping varies */
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      padding: 0 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+      /* Fixed height for consistent pill sizes */
+    }
+
+    .tag.primary {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .project-link {
+      padding: 12px 16px;
+      border: 1.5px solid var(--text);
+      text-decoration: none;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      transition: all .18s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 42px;
+      /* Fixed button height for alignment */
+      width: 100%;
+    }
+
+    .project-link:hover {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    /* ABOUT */
+
+    .about-section {
+      background: var(--dark);
+      margin: 0 -48px;
+      padding: 72px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+
+    .about-label,
+    .about-skills-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #6B6560;
+      margin-bottom: 24px;
+    }
+
+    .about-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      line-height: 1;
+      color: var(--dark-text);
+      margin-bottom: 30px;
+    }
+
+    .accent {
+      color: var(--red);
+    }
+
+    .about-body {
+      font-size: 17px;
+      line-height: 1.8;
+      color: #A09890;
+      margin-bottom: 40px;
+    }
+
+    .about-body strong {
+      color: var(--dark-text);
+      font-weight: 400;
+    }
+
+    .skill-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid #2C2E33;
+    }
+
+    .skill-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      color: var(--dark-text);
+    }
+
+    .skill-tools {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      color: #6B6560;
+      text-align: right;
+    }
+
+    /* FOOTER */
+
+    footer {
+      padding: 32px 0;
+      border-top: 1.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .footer-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+    }
+
+    .slash {
+      color: var(--red);
+      margin-right: 4px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+
+      .container {
+        padding: 0 24px;
+      }
+
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .about-section {
+        grid-template-columns: 1fr;
+        margin: 0 -24px;
+        padding: 56px 24px;
+        gap: 48px;
+      }
+
+    }
+
+    @media (max-width: 640px) {
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-meta {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <header>
+
+      <div class="hero-inner">
+
+        <div>
+
+          <h1 class="name">DHRUV</h1>
+
+          <p class="engineer-label">
+            Engineer. I build.
+          </p>
+
+          <div class="hero-meta">
+
+            <a href="https://github.com/dhruv-0512" target="_blank" class="btn">
+              GitHub
+            </a>
+
+            <a href="https://www.linkedin.com/in/dhruv-trivedi-3005d/" target="_blank" class="btn">
+              LinkedIn
+            </a>
+
+            <a href="https://pypi.org/user/dhruv3vedi/" target="_blank" class="btn">
+              PyPI
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </header>
+
+    <section>
+
+      <div class="section-header">
+        <span class="section-title">Projects</span>
+        <span class="section-count">01 — 07</span>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- 1 -->
+        <div class="project-card">
+          <div class="project-number">01 / 07</div>
+          <div class="project-name">dvara</div>
+
+          <p class="project-desc">
+            Malicious URL detection using a probabilistic Bloom Filter pipeline. Ingests live threat feeds from URLhaus,
+            PhishTank, OpenPhish, and Cert.pl.
+          </p>
+
+          <div class="project-stat">
+            268,970 URLs · 5.14MB · 145k checks/sec · PyPI
+          </div>
+
+          <div class="tags">
+            <span class="tag primary">Bloom Filter</span>
+            <span class="tag">Python</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Redis</span>
+          </div>
+
+          <div style="display:flex; gap:8px;">
+            <a href="https://github.com/dhruv-0512/dvara" target="_blank" class="project-link" style="flex:1;">
+              View Repo
+            </a>
+            <a href="https://dvara-t19n.onrender.com/" target="_blank" class="project-link"
+              style="flex:1; border-color:var(--red); color:var(--red);">
+              Live
+            </a>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="project-card">
+          <div class="project-number">02 / 07</div>
+          <div class="project-name">lostping</div>
+
+          <p class="project-desc">
+            AIS vessel anomaly detection — finds ships going dark, loitering, or moving erratically. Real-world use:
+            sanctions evasion, illegal fishing, STS monitoring.
+          </p>
+
+          <div class="project-stat">
+            7.3M pings · 4,621 vessels scored
+          </div>
+
+          <div class="tags">
+            <span class="tag primary">Isolation Forest</span>
+            <span class="tag">DBSCAN</span>
+            <span class="tag">Folium</span>
+            <span class="tag">Geospatial</span>
+          </div>
+
+          <div style="display:flex;">
+            <a href="https://github.com/dhruv-0512/lostping" target="_blank" class="project-link">
+              View Repo
+            </a>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="project-card">
+          <div class="project-number">03 / 07</div>
+          <div class="project-name">AMCNetV5</div>
+
+          <p class="project-desc">
+            Physics-informed 1D CNN with CBAM attention that classifies radio signals into 11 modulation types from raw
+            IQ data. Trained on RadioML 2016.10a.
+          </p>
+
+          <div class="project-stat">
+            93.06% high-SNR accuracy
+          </div>
+
+          <div class="tags">
+            <span class="tag primary">PyTorch</span>
+            <span class="tag">CBAM</span>
+            <span class="tag">Signal ML</span>
+            <span class="tag">1D CNN</span>
+          </div>
+
+          <div style="display:flex;">
+            <a href="https://github.com/dhruv-0512/AMC-Automatic-Modulation-Classification-" target="_blank"
+              class="project-link">
+              View Repo
+            </a>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="project-card">
+          <div class="project-number">04 / 07</div>
+          <div class="project-name">SybilGAT</div>
+
+          <p class="project-desc">
+            Graph Attention Network for Twitter bot detection on cresci-2017. Statistically proves the model suppresses
+            bot-to-human camouflage edges at p&nbsp;&lt;&nbsp;10⁻⁴¹.
+          </p>
+
+          <div class="project-stat">
+            97.12% accuracy · GNN
+          </div>
+
+          <div class="tags">
+            <span class="tag primary">GAT</span>
+            <span class="tag">PyTorch Geometric</span>
+            <span class="tag">Graph ML</span>
+          </div>
+
+          <div style="display:flex;">
+            <a href="https://github.com/dhruv-0512/SybilGAT" target="_blank" class="project-link">
+              View Repo
+            </a>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="project-card">
+          <div class="project-number">05 / 07</div>
+          <div class="project-name">rag-doc-qa</div>
+
+          <p class="project-desc">
+            Production-grade RAG system — upload any PDF, query it in plain English. Fully offline using Ollama. Custom
+            RAGAS-style eval harness with experiment tracking.
+          </p>
+
+          <div class="project-stat">
+            LangChain · Chroma · Docker
+          </div>
+
+          <div class="tags">
+            <span class="tag primary">RAG</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Ollama</span>
+            <span class="tag">Chroma</span>
+          </div>
+
+          <div style="display:flex;">
+            <a href="https://github.com/dhruv-0512/rag-doc-qa" target="_blank" class="project-link">
+              View Repo
+            </a>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="project-card">
+          <div class="project-number">06 / 07</div>
+          <div class="project-name">BiasCheck</div>
+
+          <p class="project-desc">
+            Scrapes news articles and scores political bias from −50 (far-left) to +50 (far-right) using Gemini AI.
+            Generates neutral summaries under 50 words.
+          </p>
+
+          <div class="project-stat">
+            Gemini AI · Neutral summaries
+          </div>
+
+          <div class="tags">
+            <span class="tag primary">Gemini AI</span>
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Express</span>
+          </div>
+
+          <div style="display:flex;">
+            <a href="https://github.com/dhruv-0512/BiasCheck" target="_blank" class="project-link">
+              View Repo
+            </a>
+          </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="project-card">
+          <div class="project-number">07 / 07</div>
+          <div class="project-name">PulseChat</div>
+
+          <p class="project-desc">
+            eal-time multi-user chat application with WebSockets. React + Vite frontend, Flask + Socket.IO backend.
+            One-command local startup, deployable to Render.
+          </p>
+
+          <div class="project-stat">
+            React + Flask + Socket.IO
+          </div>
+
+          <div class="tags">
+            <span class="tag primary">Socket.IO</span>
+            <span class="tag">React</span>
+            <span class="tag">Flask</span>
+            <span class="tag">Vite</span>
+          </div>
+
+          <div style="display:flex;">
+            <a href="https://github.com/dhruv-0512/PulseChat" target="_blank" class="project-link">
+              View Repo
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="container">
+
+    <section>
+
+      <div class="about-section">
+
+        <div>
+
+          <div class="about-label">// About</div>
+
+          <h2 class="about-heading">
+            About<br>
+            <span class="accent">Me.</span>
+          </h2>
+
+          <p class="about-body">
+
+            I'm Dhruv, a third-year Information Science student at BMS College of Engineering, Bangalore.
+            I'm interested in applied machine learning, systems architecture, and building software that holds up under
+            real-world constraints, not just inside notebooks.
+
+            <br><br>
+
+            Most of my work sits somewhere between
+            <strong>security systems, probabilistic data structures, and machine learning</strong>.
+            I like problems that force you to understand what's actually happening under the hood.
+
+          </p>
+
+          <div class="contact-links">
+            <a href="mailto:dhruvh3vedi@gmail.com" class="btn btn-red">
+              Contact Me
+            </a>
+          </div>
+
+        </div>
+
+        <div class="about-right">
+
+          <div class="about-skills-label">
+            // Stack
+          </div>
+
+          <div class="skill-row">
+            <span class="skill-name">Languages</span>
+            <span class="skill-tools">
+              Python · C++ · JavaScript · Java
+            </span>
+          </div>
+
+          <div class="skill-row">
+            <span class="skill-name">ML / AI</span>
+            <span class="skill-tools">
+              PyTorch · LangChain · scikit-learn
+            </span>
+          </div>
+
+          <div class="skill-row">
+            <span class="skill-name">Backend</span>
+            <span class="skill-tools">
+              FastAPI · Flask · Express · Spring Boot
+            </span>
+          </div>
+
+          <div class="skill-row">
+            <span class="skill-name">Infra</span>
+            <span class="skill-tools">
+              Docker · Redis · PostgreSQL · Render
+            </span>
+          </div>
+
+          <div class="skill-row">
+            <span class="skill-name">Frontend</span>
+            <span class="skill-tools">
+              React · Vite · Socket.IO
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <footer>
+
+      <span class="footer-tag">
+        <span class="slash">//</span>
+        Build...
+      </span>
+
+      <span class="footer-tag">
+        dhruv-0512 · 2026
+      </span>
+
+    </footer>
+
+  </div>
+
+</body>
+
+</html>
