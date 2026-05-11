@@ -64,8 +64,6 @@
       padding: 0 48px;
     }
 
-    /* HERO */
-
     header {
       padding: 80px 0 64px;
       border-bottom: 1.5px solid var(--border);
@@ -143,8 +141,6 @@
       color: white;
     }
 
-    /* SECTION */
-
     .section-header {
       display: flex;
       justify-content: space-between;
@@ -162,8 +158,6 @@
       text-transform: uppercase;
       color: var(--text-muted);
     }
-
-    /* PROJECTS */
 
     .projects-grid {
       display: grid;
@@ -217,7 +211,6 @@
       font-size: 28px;
       margin-bottom: 14px;
       min-height: 34px;
-      /* Alignment fix */
     }
 
     .project-desc {
@@ -226,7 +219,6 @@
       margin-bottom: 22px;
       flex: 1;
       min-height: 85px;
-      /* Ensures descriptions align across row */
     }
 
     .project-stat {
@@ -239,7 +231,6 @@
       padding: 7px 0;
       margin-bottom: 20px;
       min-height: 42px;
-      /* Allows for 2 lines if text wraps, keeping row aligned */
       display: flex;
       align-items: center;
     }
@@ -250,7 +241,6 @@
       gap: 6px;
       margin-bottom: 26px;
       min-height: 60px;
-      /* Ensures tags align across row even if wrapping varies */
     }
 
     .tag {
@@ -264,7 +254,6 @@
       display: inline-flex;
       align-items: center;
       height: 24px;
-      /* Fixed height for consistent pill sizes */
     }
 
     .tag.primary {
@@ -286,7 +275,6 @@
       align-items: center;
       justify-content: center;
       height: 42px;
-      /* Fixed button height for alignment */
       width: 100%;
     }
 
@@ -294,8 +282,6 @@
       background: var(--text);
       color: var(--bg);
     }
-
-    /* ABOUT */
 
     .about-section {
       background: var(--dark);
@@ -362,8 +348,6 @@
       text-align: right;
     }
 
-    /* FOOTER */
-
     footer {
       padding: 32px 0;
       border-top: 1.5px solid var(--border);
@@ -385,10 +369,7 @@
       margin-right: 4px;
     }
 
-    /* RESPONSIVE */
-
     @media (max-width: 900px) {
-
       .container {
         padding: 0 24px;
       }
@@ -403,11 +384,9 @@
         padding: 56px 24px;
         gap: 48px;
       }
-
     }
 
     @media (max-width: 640px) {
-
       .projects-grid {
         grid-template-columns: 1fr;
       }
@@ -430,7 +409,6 @@
         flex-direction: column;
         align-items: flex-start;
       }
-
     }
   </style>
 </head>
@@ -440,37 +418,21 @@
   <div class="container">
 
     <header>
-
       <div class="hero-inner">
-
         <div>
 
           <h1 class="name">DHRUV</h1>
 
-          <p class="engineer-label">
-            Trying to do better...
-          </p>
+          <p class="engineer-label">Trying to do better...</p>
 
           <div class="hero-meta">
-
-            <a href="https://github.com/dhruv-0512" target="_blank" class="btn">
-              GitHub
-            </a>
-
-            <a href="https://www.linkedin.com/in/dhruv-trivedi-3005d/" target="_blank" class="btn">
-              LinkedIn
-            </a>
-
-            <a href="https://pypi.org/user/dhruv3vedi/" target="_blank" class="btn">
-              PyPI
-            </a>
-
+            <a href="https://github.com/dhruv-0512" target="_blank" class="btn">GitHub</a>
+            <a href="https://www.linkedin.com/in/dhruv-trivedi-3005d/" target="_blank" class="btn">LinkedIn</a>
+            <a href="https://pypi.org/user/dhruv3vedi/" target="_blank" class="btn">PyPI</a>
           </div>
 
         </div>
-
       </div>
-
     </header>
 
     <section>
@@ -486,16 +448,14 @@
         <div class="project-card">
           <div class="project-number">01 / 07</div>
           <div class="project-name">dvara</div>
-
           <p class="project-desc">
-            Malicious URL detection using a probabilistic Bloom Filter pipeline. Ingests live threat feeds from URLhaus,
-            PhishTank, OpenPhish, and Cert.pl.
+            Malicious URL detection CLI, live on PyPI. A two stage Bloom Filter pipeline that pulls threat
+            feeds from URLhaus, PhishTank, OpenPhish, and Cert.pl in real time. Named after द्वार
+            every URL is a gateway. dvara decides what gets through.
           </p>
-
           <div class="project-stat">
-            268,970 URLs · 5.14MB · 145k checks/sec · PyPI
+            268,970 URLs · 5.14MB · 145k checks/sec · 0 false positives / 100k tested
           </div>
-
           <div class="tags">
             <span class="tag primary">Bloom Filter</span>
             <span class="tag">Python</span>
@@ -503,15 +463,11 @@
             <span class="tag">PostgreSQL</span>
             <span class="tag">Redis</span>
           </div>
-
           <div style="display:flex; gap:8px;">
-            <a href="https://github.com/dhruv-0512/dvara" target="_blank" class="project-link" style="flex:1;">
-              View Repo
-            </a>
+            <a href="https://github.com/dhruv-0512/dvara" target="_blank" class="project-link" style="flex:1;">View
+              Repo</a>
             <a href="https://dvara-t19n.onrender.com/" target="_blank" class="project-link"
-              style="flex:1; border-color:var(--red); color:var(--red);">
-              Live
-            </a>
+              style="flex:1; border-color:var(--red); color:var(--red);">Live</a>
           </div>
         </div>
 
@@ -519,27 +475,22 @@
         <div class="project-card">
           <div class="project-number">02 / 07</div>
           <div class="project-name">lostping</div>
-
           <p class="project-desc">
-            AIS vessel anomaly detection — finds ships going dark, loitering, or moving erratically. Real-world use:
-            sanctions evasion, illegal fishing, STS monitoring.
+            Ships disappear. lostping finds them. AIS vessel anomaly detection that flags ships going dark,
+            loitering, or moving erratically the same patterns that show up in sanctions evasion,
+            illegal fishing, and ship to ship transfers.
           </p>
-
           <div class="project-stat">
             7.3M pings · 4,621 vessels scored
           </div>
-
           <div class="tags">
             <span class="tag primary">Isolation Forest</span>
             <span class="tag">DBSCAN</span>
             <span class="tag">Folium</span>
             <span class="tag">Geospatial</span>
           </div>
-
           <div style="display:flex;">
-            <a href="https://github.com/dhruv-0512/lostping" target="_blank" class="project-link">
-              View Repo
-            </a>
+            <a href="https://github.com/dhruv-0512/lostping" target="_blank" class="project-link">View Repo</a>
           </div>
         </div>
 
@@ -547,28 +498,23 @@
         <div class="project-card">
           <div class="project-number">03 / 07</div>
           <div class="project-name">AMCNetV5</div>
-
           <p class="project-desc">
-            Physics-informed 1D CNN with CBAM attention that classifies radio signals into 11 modulation types from raw
-            IQ data. Trained on RadioML 2016.10a.
+            Radio signals carry information but only if you know the modulation scheme. AMCNetV5 works
+            it out directly from raw IQ data using a physics-informed 1D CNN with CBAM attention.
+            No manual feature engineering. 11 modulation types.
           </p>
-
           <div class="project-stat">
-            93.06% high-SNR accuracy
+            93.06% high SNR accuracy · RadioML 2016.10a
           </div>
-
           <div class="tags">
             <span class="tag primary">PyTorch</span>
             <span class="tag">CBAM</span>
             <span class="tag">Signal ML</span>
             <span class="tag">1D CNN</span>
           </div>
-
           <div style="display:flex;">
             <a href="https://github.com/dhruv-0512/AMC-Automatic-Modulation-Classification-" target="_blank"
-              class="project-link">
-              View Repo
-            </a>
+              class="project-link">View Repo</a>
           </div>
         </div>
 
@@ -576,26 +522,21 @@
         <div class="project-card">
           <div class="project-number">04 / 07</div>
           <div class="project-name">SybilGAT</div>
-
           <p class="project-desc">
-            Graph Attention Network for Twitter bot detection on cresci-2017. Statistically proves the model suppresses
-            bot-to-human camouflage edges at p&nbsp;&lt;&nbsp;10⁻⁴¹.
+            Bots don't just post they infiltrate social graphs and blend in. SybilGAT uses a Graph
+            Attention Network on cresci-2017 to catch them, and statistically proves it suppresses
+            bot to human camouflage edges at p&nbsp;&lt;&nbsp;10⁻⁴¹.
           </p>
-
           <div class="project-stat">
             97.12% accuracy · GNN
           </div>
-
           <div class="tags">
             <span class="tag primary">GAT</span>
             <span class="tag">PyTorch Geometric</span>
             <span class="tag">Graph ML</span>
           </div>
-
           <div style="display:flex;">
-            <a href="https://github.com/dhruv-0512/SybilGAT" target="_blank" class="project-link">
-              View Repo
-            </a>
+            <a href="https://github.com/dhruv-0512/SybilGAT" target="_blank" class="project-link">View Repo</a>
           </div>
         </div>
 
@@ -603,27 +544,22 @@
         <div class="project-card">
           <div class="project-number">05 / 07</div>
           <div class="project-name">rag-doc-qa</div>
-
           <p class="project-desc">
-            Production-grade RAG system — upload any PDF, query it in plain English. Fully offline using Ollama. Custom
-            RAGAS-style eval harness with experiment tracking.
+            Upload any PDF, ask it anything in plain English. Runs fully offline via Ollama so nothing
+            leaves your machine. Has a custom RAGAS-style eval harness because "it seems to work"
+            can be made better though.
           </p>
-
           <div class="project-stat">
-            LangChain · Chroma · Docker
+            LangChain · Chroma · Docker · Fully offline
           </div>
-
           <div class="tags">
             <span class="tag primary">RAG</span>
             <span class="tag">FastAPI</span>
             <span class="tag">Ollama</span>
             <span class="tag">Chroma</span>
           </div>
-
           <div style="display:flex;">
-            <a href="https://github.com/dhruv-0512/rag-doc-qa" target="_blank" class="project-link">
-              View Repo
-            </a>
+            <a href="https://github.com/dhruv-0512/rag-doc-qa" target="_blank" class="project-link">View Repo</a>
           </div>
         </div>
 
@@ -631,27 +567,23 @@
         <div class="project-card">
           <div class="project-number">06 / 07</div>
           <div class="project-name">BiasCheck</div>
-
           <p class="project-desc">
-            Scrapes news articles and scores political bias from −50 (far-left) to +50 (far-right) using Gemini AI.
-            Generates neutral summaries under 50 words.
+            Every article has a lean somewhere on the political spectrum. BiasCheck scores political bias from −50 (far
+            left) to +50
+            (far right) using Gemini AI, then rewrites it as a neutral summary under 50 words.
+            Same story, no spin.
           </p>
-
           <div class="project-stat">
-            Gemini AI · Neutral summaries
+            Gemini AI · Live article scraping · Neutral summaries
           </div>
-
           <div class="tags">
             <span class="tag primary">Gemini AI</span>
             <span class="tag">React</span>
             <span class="tag">Node.js</span>
             <span class="tag">Express</span>
           </div>
-
           <div style="display:flex;">
-            <a href="https://github.com/dhruv-0512/BiasCheck" target="_blank" class="project-link">
-              View Repo
-            </a>
+            <a href="https://github.com/dhruv-0512/BiasCheck" target="_blank" class="project-link">View Repo</a>
           </div>
         </div>
 
@@ -659,27 +591,22 @@
         <div class="project-card">
           <div class="project-number">07 / 07</div>
           <div class="project-name">PulseChat</div>
-
           <p class="project-desc">
-            eal-time multi-user chat application with WebSockets. React + Vite frontend, Flask + Socket.IO backend.
-            One-command local startup, deployable to Render.
+            Real time multi user chat built on WebSockets. React + Vite frontend, Flask + Socket.IO
+            backend. One command to run locally, deployable to Render. Built to understand the full
+            stack from socket handshake to UI state.
           </p>
-
           <div class="project-stat">
             React + Flask + Socket.IO
           </div>
-
           <div class="tags">
             <span class="tag primary">Socket.IO</span>
             <span class="tag">React</span>
             <span class="tag">Flask</span>
             <span class="tag">Vite</span>
           </div>
-
           <div style="display:flex;">
-            <a href="https://github.com/dhruv-0512/PulseChat" target="_blank" class="project-link">
-              View Repo
-            </a>
+            <a href="https://github.com/dhruv-0512/PulseChat" target="_blank" class="project-link">View Repo</a>
           </div>
         </div>
 
@@ -705,66 +632,53 @@
           </h2>
 
           <p class="about-body">
-
-            I'm Dhruv, a third-year Information Science student at BMS College of Engineering, Bangalore.
-            I'm interested in applied machine learning, systems architecture, and building software that holds up under
-            real-world constraints, not just inside notebooks.
+            I'm Dhruv. A third year Information Science at BMS College of Engineering, Bangalore. I'm drawn to the gap
+            between
+            a good ML idea and something that actually runs in the world that's where most of my work ends up.
 
             <br><br>
 
-            Most of my work sits somewhere between
-            <strong>security systems, probabilistic data structures, and machine learning</strong>.
-            I like problems that force you to understand what's actually happening under the hood.
+            Most of it sits somewhere between <strong>systems architecture, probabilistic data structures,
+              and applied ML</strong>.
 
+            <br><br>
+
+            I want to know what's actually happening under the hood. Not just what works, but why.
           </p>
 
           <div class="contact-links">
-            <a href="mailto:dhruvh3vedi@gmail.com" class="btn btn-red">
-              Contact Me
-            </a>
+            <a href="mailto:dhruvh3vedi@gmail.com" class="btn btn-red">Contact Me</a>
           </div>
 
         </div>
 
         <div class="about-right">
 
-          <div class="about-skills-label">
-            // Stack
-          </div>
+          <div class="about-skills-label">// Stack</div>
 
           <div class="skill-row">
             <span class="skill-name">Languages</span>
-            <span class="skill-tools">
-              Python · C++ · JavaScript · Java
-            </span>
+            <span class="skill-tools">Python · C++ · JavaScript · Java</span>
           </div>
 
           <div class="skill-row">
             <span class="skill-name">ML / AI</span>
-            <span class="skill-tools">
-              PyTorch · LangChain · scikit-learn
-            </span>
+            <span class="skill-tools">PyTorch · LangChain · scikit-learn</span>
           </div>
 
           <div class="skill-row">
             <span class="skill-name">Backend</span>
-            <span class="skill-tools">
-              FastAPI · Flask · Express · Spring Boot
-            </span>
+            <span class="skill-tools">FastAPI · Flask · Express · Spring Boot</span>
           </div>
 
           <div class="skill-row">
             <span class="skill-name">Infra</span>
-            <span class="skill-tools">
-              Docker · Redis · PostgreSQL · Render
-            </span>
+            <span class="skill-tools">Docker · Redis · PostgreSQL · Render</span>
           </div>
 
           <div class="skill-row">
             <span class="skill-name">Frontend</span>
-            <span class="skill-tools">
-              React · Vite · Socket.IO
-            </span>
+            <span class="skill-tools">React · Vite · Socket.IO</span>
           </div>
 
         </div>
@@ -774,16 +688,8 @@
     </section>
 
     <footer>
-
-      <span class="footer-tag">
-        <span class="slash">//</span>
-        Build...
-      </span>
-
-      <span class="footer-tag">
-        dhruv-0512 · 2026
-      </span>
-
+      <span class="footer-tag"><span class="slash">//</span> Build...</span>
+      <span class="footer-tag">dhruv-0512 · 2026</span>
     </footer>
 
   </div>
