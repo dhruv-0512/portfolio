@@ -1,1 +1,1 @@
-My portfolio access it at https://dhruvtrivedi.me
+My portfolio access it at:dhruvtrivedi.me
