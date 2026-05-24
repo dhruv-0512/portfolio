@@ -439,19 +439,18 @@
 
       <div class="section-header">
         <span class="section-title">Projects</span>
-        <span class="section-count">01 — 07</span>
+        <span class="section-count">01 — 08</span>
       </div>
 
       <div class="projects-grid">
 
         <!-- 1 -->
         <div class="project-card">
-          <div class="project-number">01 / 07</div>
+          <div class="project-number">01 / 08</div>
           <div class="project-name">dvara</div>
           <p class="project-desc">
-            Malicious URL detection CLI, live on PyPI. A two stage Bloom Filter pipeline that pulls threat
-            feeds from URLhaus, PhishTank, OpenPhish, and Cert.pl in real time. Named after द्वार
-            every URL is a gateway. dvara decides what gets through.
+            Malicious URL detection CLI, live on PyPI, built as a two-stage Bloom Filter pipeline.
+            Streams threat feeds from URLhaus, PhishTank, OpenPhish, and Cert.pl to decide what gets through.
           </p>
           <div class="project-stat">
             268,970 URLs · 5.14MB · 145k checks/sec · 0 false positives / 100k tested
@@ -473,12 +472,35 @@
 
         <!-- 2 -->
         <div class="project-card">
-          <div class="project-number">02 / 07</div>
+          <div class="project-number">02 / 08</div>
+          <div class="project-name">FluxGate</div>
+          <p class="project-desc">
+            Distributed rate limiting service with four algorithms using Redis Lua scripts for atomic enforcement.
+            Load tested at 4K+ requests across 20 concurrent clients with hot config reload and live WebSocket analytics.
+          </p>
+          <div class="project-stat">
+            4 algorithms · Redis Lua · 4K+ RPS · Hot reload · Live analytics
+          </div>
+          <div class="tags">
+            <span class="tag primary">Rate Limiting</span>
+            <span class="tag">React</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Redis</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Python</span>
+          </div>
+          <div style="display:flex;">
+            <a href="https://github.com/dhruv-0512/fluxgate" target="_blank" class="project-link">View Repo</a>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="project-card">
+          <div class="project-number">03 / 08</div>
           <div class="project-name">lostping</div>
           <p class="project-desc">
-            Ships disappear. lostping finds them. AIS vessel anomaly detection that flags ships going dark,
-            loitering, or moving erratically the same patterns that show up in sanctions evasion,
-            illegal fishing, and ship to ship transfers.
+            AIS vessel anomaly detection that flags ships going dark, loitering, or moving erratically.
+            Targets patterns tied to sanctions evasion, illegal fishing, and ship-to-ship transfers.
           </p>
           <div class="project-stat">
             7.3M pings · 4,621 vessels scored
@@ -494,14 +516,13 @@
           </div>
         </div>
 
-        <!-- 3 -->
+        <!-- 4 -->
         <div class="project-card">
-          <div class="project-number">03 / 07</div>
+          <div class="project-number">04 / 08</div>
           <div class="project-name">AMCNetV5</div>
           <p class="project-desc">
-            Radio signals carry information but only if you know the modulation scheme. AMCNetV5 works
-            it out directly from raw IQ data using a physics-informed 1D CNN with CBAM attention.
-            No manual feature engineering. 11 modulation types.
+            Classifies modulation directly from raw IQ data using a physics-informed 1D CNN with CBAM attention.
+            Removes manual feature engineering while covering 11 modulation types.
           </p>
           <div class="project-stat">
             93.06% high SNR accuracy · RadioML 2016.10a
@@ -518,14 +539,13 @@
           </div>
         </div>
 
-        <!-- 4 -->
+        <!-- 5 -->
         <div class="project-card">
-          <div class="project-number">04 / 07</div>
+          <div class="project-number">05 / 08</div>
           <div class="project-name">SybilGAT</div>
           <p class="project-desc">
-            Bots don't just post they infiltrate social graphs and blend in. SybilGAT uses a Graph
-            Attention Network on cresci-2017 to catch them, and statistically proves it suppresses
-            bot to human camouflage edges at p&nbsp;&lt;&nbsp;10⁻⁴¹.
+            Uses a Graph Attention Network on cresci-2017 to detect bots hiding in social graphs.
+            Statistically shows suppression of bot-to-human camouflage edges at p&nbsp;&lt;&nbsp;10⁻⁴¹.
           </p>
           <div class="project-stat">
             97.12% accuracy · GNN
@@ -540,14 +560,13 @@
           </div>
         </div>
 
-        <!-- 5 -->
+        <!-- 6 -->
         <div class="project-card">
-          <div class="project-number">05 / 07</div>
+          <div class="project-number">06 / 08</div>
           <div class="project-name">rag-doc-qa</div>
           <p class="project-desc">
-            Upload any PDF, ask it anything in plain English. Runs fully offline via Ollama so nothing
-            leaves your machine. Has a custom RAGAS-style eval harness because "it seems to work"
-            can be made better though.
+            Upload any PDF, ask questions in plain English, and keep everything fully offline via Ollama.
+            Includes a custom RAGAS-style eval harness for measurable retrieval quality.
           </p>
           <div class="project-stat">
             LangChain · Chroma · Docker · Fully offline
@@ -563,15 +582,13 @@
           </div>
         </div>
 
-        <!-- 6 -->
+        <!-- 7 -->
         <div class="project-card">
-          <div class="project-number">06 / 07</div>
+          <div class="project-number">07 / 08</div>
           <div class="project-name">BiasCheck</div>
           <p class="project-desc">
-            Every article has a lean somewhere on the political spectrum. BiasCheck scores political bias from −50 (far
-            left) to +50
-            (far right) using Gemini AI, then rewrites it as a neutral summary under 50 words.
-            Same story, no spin.
+            Scores political bias from −50 (far left) to +50 (far right) using Gemini AI.
+            Rewrites each article as a neutral summary under 50 words.
           </p>
           <div class="project-stat">
             Gemini AI · Live article scraping · Neutral summaries
@@ -587,14 +604,13 @@
           </div>
         </div>
 
-        <!-- 7 -->
+        <!-- 8 -->
         <div class="project-card">
-          <div class="project-number">07 / 07</div>
+          <div class="project-number">08 / 08</div>
           <div class="project-name">PulseChat</div>
           <p class="project-desc">
-            Real time multi user chat built on WebSockets. React + Vite frontend, Flask + Socket.IO
-            backend. One command to run locally, deployable to Render. Built to understand the full
-            stack from socket handshake to UI state.
+            Real-time multi-user chat built on WebSockets with React + Vite and Flask + Socket.IO.
+            One command to run locally and deployable to Render.
           </p>
           <div class="project-stat">
             React + Flask + Socket.IO
@@ -632,24 +648,9 @@
           </h2>
 
           <p class="about-body">
-            I'm Dhruv. A third year Information Science at BMS College of Engineering, Bangalore. I'm drawn to the gap
-            between
-            a good ML idea and something that actually runs in the world that's where most of my work ends up.
-
-            <br><br>
-
-<<<<<<< HEAD
-            Most of it sits somewhere between <strong>systems architecture, probabilistic data structures,
-              and applied ML</strong>.
-=======
-            Most of my work sits somewhere between
-            <strong>backend systems, probabilistic data structures, and machine learning</strong>.
-            I like problems that force you to understand what's actually happening under the hood.
->>>>>>> 02fc0bbe9012f9fa83b61d0f212f543083577033
-
-            <br><br>
-
-            I want to know what's actually happening under the hood. Not just what works, but why.
+            I'm Dhruv, a third year Information Science student at BMS College of Engineering, Bangalore.
+            I build systems that turn ML ideas into production ready tools across backend systems,
+            probabilistic data structures and applied ML.
           </p>
 
           <div class="contact-links">
