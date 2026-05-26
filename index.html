@@ -408,6 +408,12 @@
       font-weight: 400;
     }
 
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
     .skill-row {
       display: flex;
       justify-content: space-between;
@@ -429,6 +435,7 @@
       color: var(--about-muted);
       text-align: right;
     }
+
 
     footer {
       padding: 32px 0;
@@ -466,6 +473,7 @@
         padding: 56px 24px;
         gap: 48px;
       }
+
     }
 
     @media (max-width: 640px) {
@@ -747,6 +755,8 @@
 
           <div class="contact-links">
             <a href="mailto:dhruvh3vedi@gmail.com" class="btn btn-red">Contact Me</a>
+            <a href="https://drive.google.com/file/d/1EL7hDGhJIjWaRhK68RZjb-Qb9X9LNt31/view" target="_blank"
+              rel="noopener" class="btn btn-red">Resume</a>
           </div>
 
         </div>
@@ -818,8 +828,5 @@
       const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       applyTheme(next);
     });
-  </script>
 
 </body>
-
-</html>
