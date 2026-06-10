@@ -52,7 +52,8 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  ::selection { background: rgba(196,109,29,0.2); }
+  ::selection { background: rgba(196,109,29,0.35); color: #fff; }
+  ::-moz-selection { background: rgba(196,109,29,0.35); color: #fff; }
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
@@ -1089,11 +1090,15 @@
     // Focus input when clicking terminal
     body.addEventListener('click', () => input.focus());
 
-    // Keep input visible (but not when clicking filter buttons or other interactive elements)
+    // Only refocus terminal if user clicked inside the terminal
+    var lastClickTarget = null;
+    document.addEventListener('mousedown', function(e) {
+      lastClickTarget = e.target;
+    });
     input.addEventListener('blur', function(e) {
       setTimeout(function() {
-        var active = document.activeElement;
-        if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active === document.body)) {
+        // Only steal focus back if the click was inside the terminal body
+        if (lastClickTarget && body.contains(lastClickTarget)) {
           input.focus();
         }
       }, 10);
