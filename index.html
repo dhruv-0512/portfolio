@@ -52,8 +52,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  ::selection { background: rgba(196,109,29,0.35); color: #fff; }
-  ::-moz-selection { background: rgba(196,109,29,0.35); color: #fff; }
+  ::selection { background: rgba(196,109,29,0.2); }
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
@@ -490,7 +489,7 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#" class="nav-brand">dhruv.h</a>
+  <a href="#" class="nav-brand">dhruv.trivedi</a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#work" onclick="mClose()">work</a></li>
     <li><a href="#about" onclick="mClose()">about</a></li>
@@ -499,6 +498,8 @@
   </ul>
   <button class="hamburger" id="hb" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
+
+
 
 <!-- HERO -->
 <section class="hero">
@@ -1090,15 +1091,11 @@
     // Focus input when clicking terminal
     body.addEventListener('click', () => input.focus());
 
-    // Only refocus terminal if user clicked inside the terminal
-    var lastClickTarget = null;
-    document.addEventListener('mousedown', function(e) {
-      lastClickTarget = e.target;
-    });
+    // Keep input visible (but not when clicking filter buttons or other interactive elements)
     input.addEventListener('blur', function(e) {
       setTimeout(function() {
-        // Only steal focus back if the click was inside the terminal body
-        if (lastClickTarget && body.contains(lastClickTarget)) {
+        var active = document.activeElement;
+        if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active === document.body)) {
           input.focus();
         }
       }, 10);
