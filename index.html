@@ -42,8 +42,6 @@
     --r-sm: 5px;
   }
 
-  html { scroll-behavior: smooth; }
-
   body {
     background: var(--bg);
     color: var(--text);
@@ -1148,6 +1146,7 @@
 
   // smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
+    if (a.getAttribute('href') === '#') return;
     a.addEventListener('click', e => {
       const t = document.querySelector(a.getAttribute('href'));
       if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
