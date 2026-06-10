@@ -1,834 +1,1158 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Dhruv H — I build systems that work at scale. Distributed backends, ML pipelines, tools that ship.">
+<title>Dhruv H</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <title>Dhruv H</title>
+  :root {
+    --bg: #b5aca1;
+    --bg-warm: #ada49a;
+    --bg-card: #c9c1b7;
+    --bg-card-hover: #d4ccc2;
+    --bg-deep: #9e958b;
+    --border: rgba(0,0,0,0.08);
+    --border-strong: rgba(0,0,0,0.14);
+    --text: #1c1915;
+    --text-mid: #4a453e;
+    --text-soft: #5a534b;
+    --text-faint: #706a62;
+    --accent: #c46d1d;
+    --accent-hover: #d97b22;
+    --accent-soft: rgba(196,109,29,0.1);
+    --teal: #0f766e;
+    --teal-soft: rgba(15,118,110,0.08);
+    --violet: #6d28d9;
+    --violet-soft: rgba(109,40,217,0.07);
+    --rose: #be123c;
+    --rose-soft: rgba(190,18,60,0.07);
+    --emerald: #047857;
+    --emerald-soft: rgba(4,120,87,0.08);
+    --slate: #475569;
+    --slate-soft: rgba(71,85,105,0.07);
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Outfit', -apple-system, sans-serif;
+    --r: 8px;
+    --r-sm: 5px;
+  }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  html { scroll-behavior: smooth; }
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap"
-    rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
 
-  <style>
-    :root {
-      --bg: #EDEEF0;
-      --bg-card: #F4F5F7;
-      --text: #1C1E22;
-      --text-muted: #6E7380;
-      --border: #C4C7CE;
-      --accent: #5C7A5F;
-      --dark: #1C1E22;
-      --dark-text: #E8E9EC;
-      --panel: #F7F6F3;
-      --shadow: 0 24px 50px rgba(12, 15, 20, 0.08);
-      --about-muted: #6B6560;
-      --about-body: #A09890;
-      --about-border: #2C2E33;
+  ::selection { background: rgba(196,109,29,0.2); }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
+
+  /* ══════════ NAV ══════════ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 48px; height: 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: all 0.35s;
+  }
+  nav.scrolled {
+    background: rgba(181,172,161,0.88);
+    backdrop-filter: blur(14px) saturate(1.1);
+    box-shadow: 0 1px 0 var(--border);
+  }
+  .nav-brand {
+    font-family: var(--mono); font-size: 14px; font-weight: 600;
+    color: var(--accent); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+  .nav-links a {
+    font-family: var(--mono); font-size: 11.5px; font-weight: 500;
+    color: var(--text-soft); text-decoration: none; letter-spacing: 0.03em;
+    transition: color 0.2s; padding: 4px 0; position: relative;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -2px; left: 0;
+    width: 0; height: 1.5px; background: var(--accent);
+    transition: width 0.25s ease; border-radius: 1px;
+  }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    font-family: var(--mono); font-size: 11.5px; font-weight: 600;
+    color: #fff; background: var(--accent); padding: 8px 20px;
+    border-radius: var(--r-sm); text-decoration: none; line-height: 1;
+    transition: all 0.2s; box-shadow: 0 2px 8px rgba(196,109,29,0.15);
+  }
+  .nav-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
+  .nav-links .nav-cta { padding: 8px 20px; align-self: center; }
+
+  .hamburger {
+    display: none; background: none; border: none; cursor: pointer;
+    width: 26px; height: 18px; position: relative; z-index: 101;
+  }
+  .hamburger span {
+    display: block; width: 100%; height: 2px; background: var(--text-mid);
+    border-radius: 1px; transition: all 0.3s; position: absolute; left: 0;
+  }
+  .hamburger span:nth-child(1) { top: 0; }
+  .hamburger span:nth-child(2) { top: 8px; }
+  .hamburger span:nth-child(3) { top: 16px; }
+  .hamburger.open span:nth-child(1) { top: 8px; transform: rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { top: 8px; transform: rotate(-45deg); }
+
+  /* ══════════ HERO ══════════ */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 100px 48px 80px; position: relative; overflow: hidden;
+  }
+  .hero-bg-pattern {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.04) 1px, transparent 0);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse 65% 55% at 55% 45%, rgba(0,0,0,0.5) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-glow {
+    position: absolute; top: 10%; right: 5%;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,109,29,0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr 380px; gap: 72px;
+    max-width: 1200px; margin: 0 auto; width: 100%; align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; font-weight: 500;
+    color: var(--teal); background: var(--teal-soft);
+    border: 1px solid rgba(15,118,110,0.12);
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 24px;
+    letter-spacing: 0.03em;
+  }
+  .hero-badge .dot {
+    width: 5px; height: 5px; border-radius: 50%; background: var(--teal);
+    animation: blink 2.5s ease-in-out infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero h1 {
+    font-size: clamp(64px, 9vw, 108px); font-weight: 800;
+    line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 28px;
+  }
+
+  .hero-value {
+    font-size: clamp(22px, 3vw, 32px); font-weight: 700;
+    color: var(--text); line-height: 1.2; letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+
+  .hero-sub {
+    font-size: 15px; color: var(--text-mid); max-width: 520px;
+    line-height: 1.7; margin-bottom: 32px;
+  }
+
+  .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--mono); font-size: 12px; font-weight: 600;
+    padding: 11px 24px; border-radius: var(--r-sm); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: all 0.2s; cursor: pointer; border: none;
+  }
+  .btn-fill {
+    background: var(--accent); color: #fff;
+    box-shadow: 0 2px 10px rgba(196,109,29,0.2);
+  }
+  .btn-fill:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(196,109,29,0.3); }
+  .btn-line {
+    background: transparent; color: var(--text-mid);
+    border: 1px solid var(--border-strong);
+  }
+  .btn-line:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); transform: translateY(-2px); }
+
+  /* ── Hero terminal widget ── */
+  .hero-terminal {
+    background: #1e1b18; border-radius: var(--r);
+    padding: 0; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 2px 8px rgba(0,0,0,0.1);
+    font-family: var(--mono); font-size: 12.5px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .term-bar {
+    display: flex; align-items: center; gap: 6px;
+    padding: 10px 14px; background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .term-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .term-dot.r { background: #ef4444; }
+  .term-dot.y { background: #eab308; }
+  .term-dot.g { background: #22c55e; }
+  .term-bar span {
+    margin-left: auto; font-size: 10px; color: rgba(255,255,255,0.25);
+    letter-spacing: 0.04em;
+  }
+  .term-body { padding: 16px 18px; line-height: 1.9; }
+  .term-body .prompt { color: var(--accent); }
+  .term-body .cmd { color: #e2ddd6; }
+  .term-body .out { color: #8b8580; }
+  .term-body .g { color: #4ade80; }
+  .term-body .r { color: #f87171; }
+  .term-body .y { color: #fbbf24; }
+  .term-body .c { color: #22d3ee; }
+  .term-body .cursor {
+    display: inline-block; width: 7px; height: 14px;
+    background: var(--accent); margin-left: 2px;
+    animation: cursor-blink 1s step-end infinite; vertical-align: text-bottom;
+  }
+  @keyframes cursor-blink { 50% { opacity: 0; } }
+
+  /* ── Interactive terminal ── */
+  .term-output { max-height: 280px; overflow-y: auto; padding: 0; }
+  .term-output::-webkit-scrollbar { width: 4px; }
+  .term-output::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+  .term-line { white-space: pre-wrap; word-break: break-word; min-height: 1em; }
+  .term-typing::after { content: '▌'; animation: cursor-blink 1s step-end infinite; }
+  .term-input-line {
+    display: flex; align-items: center; gap: 6px;
+    padding: 4px 0 8px; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 4px;
+  }
+  .term-input {
+    flex: 1; background: transparent; border: none; outline: none;
+    font-family: var(--mono); font-size: 12.5px; color: #e2ddd6;
+    caret-color: var(--accent);
+  }
+  .term-input::placeholder { color: rgba(255,255,255,0.15); }
+  .term-suggestion {
+    position: absolute; bottom: 100%; left: 0; right: 0;
+    padding: 4px 18px 0; font-size: 11px; color: rgba(255,255,255,0.2);
+    pointer-events: none; font-family: var(--mono);
+  }
+
+  /* ══════════ STATS BAR ══════════ */
+  .stats-bar {
+    max-width: 1200px; margin: 0 auto;
+    padding: 40px 48px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .stat-item .stat-num {
+    font-size: 28px; font-weight: 700; color: var(--accent);
+    line-height: 1; letter-spacing: -0.02em;
+  }
+  .stat-item .stat-label {
+    font-family: var(--mono); font-size: 10.5px;
+    color: var(--text-faint); letter-spacing: 0.05em; margin-top: 4px;
+  }
+
+  /* ══════════ SECTIONS ══════════ */
+  section { padding: 80px 48px; max-width: 1200px; margin: 0 auto; }
+  .divider {
+    height: 1px; max-width: 1200px; margin: 0 auto;
+    background: linear-gradient(90deg, transparent, var(--border-strong), var(--border-strong), transparent);
+  }
+  .eyebrow {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+    color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .heading {
+    font-size: clamp(26px, 3.5vw, 40px); font-weight: 700;
+    letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 40px;
+  }
+  .heading span { color: var(--text-faint); }
+
+  /* ══════════ FILTERS ══════════ */
+  .filters { display: flex; gap: 6px; margin-bottom: 32px; flex-wrap: wrap; }
+  .f-btn {
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    padding: 6px 16px; background: rgba(0,0,0,0.04); color: #3d3830;
+    border: 1px solid rgba(0,0,0,0.12); border-radius: 20px;
+    cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em;
+  }
+  .f-btn:hover { border-color: rgba(0,0,0,0.22); color: var(--text); background: rgba(0,0,0,0.07); }
+  .f-btn.active {
+    background: var(--text); color: #f5f0eb;
+    border-color: var(--text); font-weight: 700;
+  }
+
+  /* ══════════ PROJECT GRID ══════════ */
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+
+  .card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--r); padding: 24px 26px;
+    display: flex; flex-direction: column; gap: 12px;
+    position: relative; transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    overflow: hidden;
+  }
+  .card::after {
+    content: ''; position: absolute; inset: 0; border-radius: var(--r);
+    box-shadow: inset 0 0 0 1.5px transparent;
+    transition: box-shadow 0.3s; pointer-events: none;
+  }
+  .card:hover {
+    background: var(--bg-card-hover); transform: translateY(-3px);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.1);
+  }
+  .card:hover::after { box-shadow: inset 0 0 0 1.5px var(--card-color, var(--accent)); }
+  .card.wide { grid-column: span 2; }
+  .card.hidden { display: none !important; }
+
+  .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .card-icon {
+    width: 34px; height: 34px; border-radius: 8px; display: flex;
+    align-items: center; justify-content: center; font-size: 16px;
+    flex-shrink: 0;
+  }
+  .card-icon.sys { background: var(--accent-soft); }
+  .card-icon.ml { background: var(--teal-soft); }
+  .card-icon.res { background: var(--rose-soft); }
+  .card-icon.fs { background: var(--violet-soft); }
+  .card-icon.dt { background: var(--emerald-soft); }
+
+  .card-head-left { display: flex; align-items: center; gap: 10px; }
+  .card-badge {
+    font-family: var(--mono); font-size: 9.5px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 3px;
+  }
+  .b-sys { background: var(--accent-soft); color: var(--accent); }
+  .b-ml { background: var(--teal-soft); color: var(--teal); }
+  .b-res { background: var(--rose-soft); color: var(--rose); }
+  .b-fs { background: var(--violet-soft); color: var(--violet); }
+  .b-dt { background: var(--emerald-soft); color: var(--emerald); }
+
+  .card-links { display: flex; gap: 10px; flex-shrink: 0; }
+  .card-link {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+    color: var(--text-mid); text-decoration: none; transition: all 0.2s;
+    padding: 2px 6px; border-radius: 3px; background: rgba(0,0,0,0.03);
+  }
+  .card-link:hover { color: var(--accent); background: var(--accent-soft); }
+
+  .card-name { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; }
+  .card-desc { font-size: 13px; color: var(--text-mid); line-height: 1.7; flex: 1; }
+
+  .card-nums { display: flex; gap: 20px; flex-wrap: wrap; }
+  .card-num { display: flex; flex-direction: column; gap: 1px; }
+  .card-num b {
+    font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text);
+  }
+  .card-num small {
+    font-family: var(--mono); font-size: 9.5px; color: var(--text-faint);
+    letter-spacing: 0.05em;
+  }
+
+  .card-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: auto; }
+  .t {
+    font-family: var(--mono); font-size: 10px; font-weight: 500;
+    padding: 3px 9px; background: var(--bg-warm); border: 1px solid var(--border);
+    color: var(--text-soft); border-radius: 3px; letter-spacing: 0.02em;
+  }
+
+  /* ══════════ CURRENTLY ══════════ */
+  .currently {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    margin-top: 40px;
+  }
+  .cur-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--r); padding: 20px 22px;
+    display: flex; align-items: flex-start; gap: 14px;
+  }
+  .cur-emoji { font-size: 22px; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+  .cur-text .cur-label {
+    font-family: var(--mono); font-size: 10px; font-weight: 600;
+    color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .cur-text p { font-size: 13.5px; color: var(--text-mid); margin-top: 4px; line-height: 1.5; }
+  .cur-text p strong { color: var(--text); font-weight: 600; }
+
+  /* ══════════ ABOUT ══════════ */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  .about-text p {
+    font-size: 15.5px; color: var(--text-mid); line-height: 1.75; margin-bottom: 14px;
+  }
+  .about-text p strong { color: var(--text); font-weight: 600; }
+  .about-text .quirk {
+    font-size: 13px; color: var(--text-faint); font-style: italic;
+    border-left: 2px solid var(--accent); padding-left: 14px; margin-top: 20px;
+  }
+
+  .sk-group { margin-bottom: 20px; }
+  .sk-label {
+    font-family: var(--mono); font-size: 10px; font-weight: 600;
+    color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 8px; display: block;
+  }
+  .sk-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+  .sk-pill {
+    font-family: var(--mono); font-size: 11.5px; font-weight: 500;
+    padding: 5px 12px; background: var(--bg-card); border: 1px solid var(--border);
+    color: var(--text-mid); border-radius: var(--r-sm);
+    transition: all 0.2s;
+  }
+  .sk-pill:hover { border-color: var(--border-strong); color: var(--text); }
+
+  /* ══════════ CONTACT ══════════ */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .contact-big {
+    font-size: clamp(34px, 5vw, 52px); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.1;
+  }
+  .contact-big .a { color: var(--accent); }
+  .contact-big .sub {
+    display: block; font-family: var(--mono); font-size: 13px;
+    font-weight: 400; color: var(--text-faint); letter-spacing: 0.03em;
+    margin-top: 16px; line-height: 1.6;
+  }
+  .c-links { display: flex; flex-direction: column; gap: 8px; }
+  .c-link {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 18px; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--r-sm); text-decoration: none; color: var(--text);
+    transition: all 0.2s;
+  }
+  .c-link:hover {
+    border-color: var(--accent); background: var(--accent-soft);
+    transform: translateX(4px);
+  }
+  .c-link .cl-label {
+    font-family: var(--mono); font-size: 11px; color: var(--text-faint);
+    letter-spacing: 0.05em;
+  }
+  .c-link .cl-val { font-size: 13px; font-weight: 500; color: var(--text-mid); }
+  .c-link:hover .cl-val { color: var(--text); }
+
+  /* ══════════ FOOTER ══════════ */
+  footer {
+    border-top: 1px solid var(--border); padding: 24px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 1200px; margin: 0 auto;
+  }
+  footer p { font-family: var(--mono); font-size: 11px; color: var(--text-faint); }
+  footer .fa { color: var(--accent); }
+
+  /* ══════════ ANIMATIONS ══════════ */
+  .reveal {
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+  .reveal.vis { opacity: 1; transform: translateY(0); }
+
+  /* ══════════ RESPONSIVE ══════════ */
+  @media (max-width: 1024px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-terminal { max-width: 460px; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .grid { grid-template-columns: 1fr; }
+    .card.wide { grid-column: span 1; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links {
+      position: fixed; top: 0; right: -100%; width: 240px; height: 100vh;
+      background: var(--bg-card); flex-direction: column; padding: 72px 28px 28px;
+      gap: 20px; transition: right 0.3s ease;
+      box-shadow: -6px 0 24px rgba(0,0,0,0.15); border-left: 1px solid var(--border);
     }
-
-    [data-theme="dark"] {
-      --bg: #0F1115;
-      --bg-card: #151922;
-      --text: #E6E9EE;
-      --text-muted: #A4ABBA;
-      --border: #2A2F3B;
-      --accent: #82A382;
-      --dark: #0B0D12;
-      --dark-text: #F3F4F6;
-      --panel: #131720;
-      --shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
-      --about-muted: #8C93A3;
-      --about-body: #B7BDCA;
-      --about-border: #232836;
-    }
-
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Instrument Serif', serif;
-      font-size: 16px;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(1200px 800px at 10% -10%, rgba(92, 122, 95, 0.25), transparent 60%),
-        radial-gradient(900px 600px at 90% -20%, rgba(92, 122, 95, 0.18), transparent 55%),
-        radial-gradient(700px 600px at 40% 110%, rgba(92, 122, 95, 0.12), transparent 55%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1000;
-      opacity: 0.35;
-    }
-
-    .container {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 48px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-
-    .top-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    .theme-toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border: 1.5px solid var(--border);
-      border-radius: 999px;
-      background: var(--panel);
-      color: var(--text);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all .18s ease;
-      box-shadow: var(--shadow);
-    }
-
-    .theme-toggle:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    .theme-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(92, 122, 95, 0.15);
-    }
-
-    header {
-      padding: 80px 0 64px;
-      border-bottom: 1.5px solid var(--border);
-    }
-
-    .hero-inner {
-      display: grid;
-      grid-template-columns: 1fr;
-    }
-
-    .name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(80px, 12vw, 148px);
-      line-height: 0.9;
-      letter-spacing: -0.02em;
-      position: relative;
-      display: inline-block;
-    }
-
-    .name::after {
-      content: '';
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: var(--accent);
-      position: absolute;
-      right: -12px;
-      bottom: 14px;
-    }
-
-    .engineer-label {
-      margin-top: 18px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-    }
-
-    .hero-meta {
-      margin-top: 40px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 11px 20px;
-      border: 1.5px solid var(--text);
-      color: var(--text);
-      text-decoration: none;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      transition: all .18s ease;
-    }
-
-    .btn:hover {
-      background: var(--text);
-      color: var(--bg);
-    }
-
-    .btn-red {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .btn-red:hover {
-      background: var(--accent);
-      color: white;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 56px 0 40px;
-      border-bottom: 1.5px solid var(--border);
-      margin-bottom: 48px;
-    }
-
-    .section-title,
-    .section-count {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5px;
-      background: var(--border);
-      border: 1.5px solid var(--border);
-      margin-bottom: 80px;
-    }
-
-    .project-card {
-      background: var(--bg-card);
-      padding: 32px 28px;
-      display: flex;
-      flex-direction: column;
-      transition: background .2s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform .2s ease;
-    }
-
-    .project-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .project-card:hover {
-      background: var(--panel);
-    }
-
-    .project-number {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: var(--border);
-      margin-bottom: 18px;
-    }
-
-    .project-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 28px;
-      margin-bottom: 14px;
-      min-height: 34px;
-    }
-
-    .project-desc {
-      color: var(--text-muted);
-      line-height: 1.7;
-      margin-bottom: 22px;
-      flex: 1;
-      min-height: 85px;
-    }
-
-    .project-stat {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      text-transform: uppercase;
-      color: var(--accent);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 7px 0;
-      margin-bottom: 20px;
-      min-height: 42px;
-      display: flex;
-      align-items: center;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 26px;
-      min-height: 60px;
-    }
-
-    .tag {
-      border: 1px solid var(--border);
-      padding: 0 8px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      display: inline-flex;
-      align-items: center;
-      height: 24px;
-    }
-
-    .tag.primary {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .project-link {
-      padding: 12px 16px;
-      border: 1.5px solid var(--text);
-      text-decoration: none;
-      color: var(--text);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      transition: all .18s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 42px;
-      width: 100%;
-    }
-
-    .project-link:hover {
-      background: var(--text);
-      color: var(--bg);
-    }
-
-    .about-section {
-      background: var(--dark);
-      margin: 0 -48px;
-      padding: 72px 48px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-    }
-
-    .about-label,
-    .about-skills-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--about-muted);
-      margin-bottom: 24px;
-    }
-
-    .about-heading {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 52px;
-      line-height: 1;
-      color: var(--dark-text);
-      margin-bottom: 30px;
-    }
-
-    .accent {
-      color: var(--accent);
-    }
-
-    .about-body {
-      font-size: 17px;
-      line-height: 1.8;
-      color: var(--about-body);
-      margin-bottom: 40px;
-    }
-
-    .about-body strong {
-      color: var(--dark-text);
-      font-weight: 400;
-    }
-
-    .contact-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .skill-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--about-border);
-    }
-
-    .skill-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 18px;
-      color: var(--dark-text);
-    }
-
-    .skill-tools {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      text-transform: uppercase;
-      color: var(--about-muted);
-      text-align: right;
-    }
-
-
-    footer {
-      padding: 32px 0;
-      border-top: 1.5px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .footer-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--text-muted);
-    }
-
-    .slash {
-      color: var(--accent);
-      margin-right: 4px;
-    }
-
-    @media (max-width: 900px) {
-      .container {
-        padding: 0 24px;
-      }
-
-      .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .about-section {
-        grid-template-columns: 1fr;
-        margin: 0 -24px;
-        padding: 56px 24px;
-        gap: 48px;
-      }
-
-    }
-
-    @media (max-width: 640px) {
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-meta {
-        flex-direction: column;
-      }
-
-      .btn {
-        width: 100%;
-      }
-
-      .section-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-      }
-
-      footer {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-  </style>
+    .nav-links.open { right: 0; }
+    .hamburger { display: block; }
+    .hero { padding: 80px 20px 48px; }
+    .hero h1 { font-size: clamp(40px, 11vw, 52px); }
+    .stats-bar { padding: 28px 20px; gap: 20px; }
+    section { padding: 56px 20px; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+    .currently { grid-template-columns: 1fr; }
+    footer { padding: 20px; flex-direction: column; gap: 4px; text-align: center; }
+  }
+</style>
 </head>
-
 <body>
 
-  <div class="container">
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-brand">dhruv.h</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#work" onclick="mClose()">work</a></li>
+    <li><a href="#about" onclick="mClose()">about</a></li>
+    <li><a href="#contact" onclick="mClose()">contact</a></li>
+    <li><a href="https://dhruvtrivedi.me/resume__Dhruv%20H.pdf" target="_blank" class="nav-cta">résumé ↗</a></li>
+  </ul>
+  <button class="hamburger" id="hb" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
 
-    <header>
-      <div class="top-bar">
-        <div class="top-tag"></div>
-        <button class="theme-toggle" type="button" aria-pressed="false" data-theme-toggle>
-          <span class="theme-dot" aria-hidden="true"></span>
-          <span>Light</span>
-        </button>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><span class="dot"></span> open to opportunities · bangalore</div>
+      <h1>Dhruv</h1>
+      <p class="hero-value">I turn ideas into software.</p>
+      <p class="hero-sub">Backend engineering, machine learning, and systems that solve real-world problems.</p>
+      <div class="hero-btns">
+        <a href="#work" class="btn btn-fill">View Projects →</a>
+        <a href="https://dhruvtrivedi.me/resume__Dhruv%20H.pdf" target="_blank" class="btn btn-line">Resume ↗</a>
       </div>
-      <div class="hero-inner">
-        <div>
-
-          <h1 class="name">DHRUV</h1>
-
-          <p class="engineer-label">Trying to do better...</p>
-
-          <div class="hero-meta">
-            <a href="https://github.com/dhruv-0512" target="_blank" class="btn">GitHub</a>
-            <a href="https://www.linkedin.com/in/dhruv-trivedi-3005d/" target="_blank" class="btn">LinkedIn</a>
-            <a href="https://pypi.org/user/dhruv3vedi/" target="_blank" class="btn">PyPI</a>
-          </div>
-
+    </div>
+    <div class="hero-terminal">
+      <div class="term-bar">
+        <div class="term-dot r"></div>
+        <div class="term-dot y"></div>
+        <div class="term-dot g"></div>
+        <span>dhruv@portfolio:~$</span>
+      </div>
+      <div class="term-body" id="termBody">
+        <div class="term-output" id="termOutput">
+          <div class="term-line"><span class="c">╭──────────────────────────────────────╮</span></div>
+          <div class="term-line"><span class="c">│  Welcome. Type <span class="g">help</span> to start       │</span></div>
+          <div class="term-line"><span class="c">╰──────────────────────────────────────╯</span></div>
+        </div>
+        <div class="term-input-line">
+          <span class="prompt">❯</span>
+          <input type="text" class="term-input" id="termInput" placeholder="type a command..." autofocus spellcheck="false" autocomplete="off">
         </div>
       </div>
-    </header>
+    </div>
+  </div>
+</section>
 
-    <section>
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">14</div>
+    <div class="stat-label">projects worked on </div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">268k</div>
+    <div class="stat-label">URLs indexed</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">7.3M</div>
+    <div class="stat-label">AIS pings processed</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">3</div>
+    <div class="stat-label">packages on PyPI</div>
+  </div>
+</div>
 
-      <div class="section-header">
-        <span class="section-title">Projects</span>
-        <span class="section-count">01 — 08</span>
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="work">
+  <div class="eyebrow">work</div>
+  <h2 class="heading">Things I've <span>worked on</span></h2>
+
+  <div class="filters">
+    <button class="f-btn active" data-f="all">all</button>
+    <button class="f-btn" data-f="sys">systems</button>
+    <button class="f-btn" data-f="ml">ml / ai</button>
+    <button class="f-btn" data-f="res">research</button>
+    <button class="f-btn" data-f="dt">dev tools</button>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <!-- ═══ SYSTEMS ═══ -->
+    <div class="card wide reveal" data-cat="sys" style="--card-color:var(--accent)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon sys">🛡️</div>
+          <span class="card-badge b-sys">systems</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/dvara" target="_blank" class="card-link">github ↗</a>
+          <a href="https://dvara-t19n.onrender.com/" target="_blank" class="card-link">live ↗</a>
+          <a href="https://pypi.org/project/dvara/" target="_blank" class="card-link">pypi ↗</a>
+        </div>
       </div>
-
-      <div class="projects-grid">
-
-        <!-- 1 -->
-        <div class="project-card">
-          <div class="project-number">01 / 08</div>
-          <div class="project-name">dvara</div>
-          <p class="project-desc">
-            Malicious URL detection CLI, live on PyPI, built as a two-stage Bloom Filter pipeline.
-            Streams threat feeds from URLhaus, PhishTank, OpenPhish, and Cert.pl to decide what gets through.
-          </p>
-          <div class="project-stat">
-            268,970 URLs · 5.14MB · 145k checks/sec · 0 false positives / 100k tested
-          </div>
-          <div class="tags">
-            <span class="tag primary">Bloom Filter</span>
-            <span class="tag">Python</span>
-            <span class="tag">FastAPI</span>
-            <span class="tag">PostgreSQL</span>
-            <span class="tag">Redis</span>
-          </div>
-          <div style="display:flex; gap:8px;">
-            <a href="https://github.com/dhruv-0512/dvara" target="_blank" class="project-link" style="flex:1;">View
-              Repo</a>
-            <a href="https://dvara-t19n.onrender.com/" target="_blank" class="project-link"
-              style="flex:1; border-color:var(--accent); color:var(--accent);">Live</a>
-          </div>
-        </div>
-
-        <!-- 2 -->
-        <div class="project-card">
-          <div class="project-number">02 / 08</div>
-          <div class="project-name">FluxGate</div>
-          <p class="project-desc">
-            Distributed rate limiting service with four algorithms using Redis Lua scripts for atomic enforcement.
-            Load tested at 4K+ requests across 20 concurrent clients with hot config reload and live WebSocket analytics.
-          </p>
-          <div class="project-stat">
-            4 algorithms · Redis Lua · 4K+ RPS · Hot reload · Live analytics
-          </div>
-          <div class="tags">
-            <span class="tag primary">Rate Limiting</span>
-            <span class="tag">React</span>
-            <span class="tag">FastAPI</span>
-            <span class="tag">Redis</span>
-            <span class="tag">PostgreSQL</span>
-            <span class="tag">Python</span>
-          </div>
-          <div style="display:flex;">
-            <a href="https://github.com/dhruv-0512/fluxgate" target="_blank" class="project-link">View Repo</a>
-          </div>
-        </div>
-
-        <!-- 3 -->
-        <div class="project-card">
-          <div class="project-number">03 / 08</div>
-          <div class="project-name">lostping</div>
-          <p class="project-desc">
-            AIS vessel anomaly detection that flags ships going dark, loitering, or moving erratically.
-            Targets patterns tied to sanctions evasion, illegal fishing, and ship-to-ship transfers.
-          </p>
-          <div class="project-stat">
-            7.3M pings · 4,621 vessels scored
-          </div>
-          <div class="tags">
-            <span class="tag primary">Isolation Forest</span>
-            <span class="tag">DBSCAN</span>
-            <span class="tag">Folium</span>
-            <span class="tag">Geospatial</span>
-          </div>
-          <div style="display:flex;">
-            <a href="https://github.com/dhruv-0512/lostping" target="_blank" class="project-link">View Repo</a>
-          </div>
-        </div>
-
-        <!-- 4 -->
-        <div class="project-card">
-          <div class="project-number">04 / 08</div>
-          <div class="project-name">AMCNetV5</div>
-          <p class="project-desc">
-            Classifies modulation directly from raw IQ data using a physics-informed 1D CNN with CBAM attention.
-            Removes manual feature engineering while covering 11 modulation types.
-          </p>
-          <div class="project-stat">
-            93.06% high SNR accuracy · RadioML 2016.10a
-          </div>
-          <div class="tags">
-            <span class="tag primary">PyTorch</span>
-            <span class="tag">CBAM</span>
-            <span class="tag">Signal ML</span>
-            <span class="tag">1D CNN</span>
-          </div>
-          <div style="display:flex;">
-            <a href="https://github.com/dhruv-0512/AMC-Automatic-Modulation-Classification-" target="_blank"
-              class="project-link">View Repo</a>
-          </div>
-        </div>
-
-        <!-- 5 -->
-        <div class="project-card">
-          <div class="project-number">05 / 08</div>
-          <div class="project-name">SybilGAT</div>
-          <p class="project-desc">
-            Uses a Graph Attention Network on cresci-2017 to detect bots hiding in social graphs.
-            Statistically shows suppression of bot-to-human camouflage edges at p&nbsp;&lt;&nbsp;10⁻⁴¹.
-          </p>
-          <div class="project-stat">
-            97.12% accuracy · GNN
-          </div>
-          <div class="tags">
-            <span class="tag primary">GAT</span>
-            <span class="tag">PyTorch Geometric</span>
-            <span class="tag">Graph ML</span>
-          </div>
-          <div style="display:flex;">
-            <a href="https://github.com/dhruv-0512/SybilGAT" target="_blank" class="project-link">View Repo</a>
-          </div>
-        </div>
-
-        <!-- 6 -->
-        <div class="project-card">
-          <div class="project-number">06 / 08</div>
-          <div class="project-name">rag-doc-qa</div>
-          <p class="project-desc">
-            Upload any PDF, ask questions in plain English, and keep everything fully offline via Ollama.
-            Includes a custom RAGAS-style eval harness for measurable retrieval quality.
-          </p>
-          <div class="project-stat">
-            LangChain · Chroma · Docker · Fully offline
-          </div>
-          <div class="tags">
-            <span class="tag primary">RAG</span>
-            <span class="tag">FastAPI</span>
-            <span class="tag">Ollama</span>
-            <span class="tag">Chroma</span>
-          </div>
-          <div style="display:flex;">
-            <a href="https://github.com/dhruv-0512/rag-doc-qa" target="_blank" class="project-link">View Repo</a>
-          </div>
-        </div>
-
-        <!-- 7 -->
-        <div class="project-card">
-          <div class="project-number">07 / 08</div>
-          <div class="project-name">BiasCheck</div>
-          <p class="project-desc">
-            Scores political bias from −50 (far left) to +50 (far right) using Gemini AI.
-            Rewrites each article as a neutral summary under 50 words.
-          </p>
-          <div class="project-stat">
-            Gemini AI · Live article scraping · Neutral summaries
-          </div>
-          <div class="tags">
-            <span class="tag primary">Gemini AI</span>
-            <span class="tag">React</span>
-            <span class="tag">Node.js</span>
-            <span class="tag">Express</span>
-          </div>
-          <div style="display:flex;">
-            <a href="https://github.com/dhruv-0512/BiasCheck" target="_blank" class="project-link">View Repo</a>
-          </div>
-        </div>
-
-        <!-- 8 -->
-        <div class="project-card">
-          <div class="project-number">08 / 08</div>
-          <div class="project-name">PulseChat</div>
-          <p class="project-desc">
-            Real-time multi-user chat built on WebSockets with React + Vite and Flask + Socket.IO.
-            One command to run locally and deployable to Render.
-          </p>
-          <div class="project-stat">
-            React + Flask + Socket.IO
-          </div>
-          <div class="tags">
-            <span class="tag primary">Socket.IO</span>
-            <span class="tag">React</span>
-            <span class="tag">Flask</span>
-            <span class="tag">Vite</span>
-          </div>
-          <div style="display:flex; gap:8px;">
-            <a href="https://github.com/dhruv-0512/PulseChat" target="_blank" class="project-link" style="flex:1;">View
-              Repo</a>
-            <a href="https://pulsechat-6e6d.onrender.com/" target="_blank" class="project-link"
-              style="flex:1; border-color:var(--accent); color:var(--accent);">Live</a>
-          </div>
-        </div>
-
+      <div class="card-name">dvara</div>
+      <div class="card-desc">Malicious URL detection CLI on PyPI. Two-stage Bloom Filter pipeline ingests threat feeds from URLhaus, PhishTank, OpenPhish & Cert.pl — 268k URLs compressed into 5.14 MB with zero false negatives. Inspired by Google Safe Browsing.</div>
+      <div class="card-nums">
+        <div class="card-num"><b>268,970</b><small>URLs indexed</small></div>
+        <div class="card-num"><b>145k/s</b><small>throughput</small></div>
+        <div class="card-num"><b>5.14 MB</b><small>filter size</small></div>
+        <div class="card-num"><b>0</b><small>false pos / 100k</small></div>
       </div>
+      <div class="card-tags">
+        <span class="t">Python</span><span class="t">FastAPI</span><span class="t">Bloom Filter</span>
+        <span class="t">PostgreSQL</span><span class="t">Redis</span><span class="t">PyPI</span>
+      </div>
+    </div>
 
-    </section>
+    <div class="card reveal" data-cat="sys" style="--card-color:var(--accent)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon sys">⚡</div>
+          <span class="card-badge b-sys">systems</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/fluxgate" target="_blank" class="card-link">github ↗</a>
+        </div>
+      </div>
+      <div class="card-name">FluxGate</div>
+      <div class="card-desc">Distributed rate limiter — 4 algorithms (token bucket, sliding window log/counter, leaky bucket) enforced atomically via Redis Lua. Hot config reload, live WebSocket dashboard.</div>
+      <div class="card-nums">
+        <div class="card-num"><b>4K+ RPS</b><small>load tested</small></div>
+        <div class="card-num"><b>~12ms</b><small>p50 latency</small></div>
+        <div class="card-num"><b>4</b><small>algorithms</small></div>
+      </div>
+      <div class="card-tags">
+        <span class="t">FastAPI</span><span class="t">Redis Lua</span><span class="t">PostgreSQL</span>
+        <span class="t">React</span><span class="t">WebSocket</span>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="res" style="--card-color:var(--rose)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon res">🔭</div>
+          <span class="card-badge b-res">research</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/Exoplanet-Atmospheric-Retrieval" target="_blank" class="card-link">github ↗</a>
+        </div>
+      </div>
+      <div class="card-name">Exoplanet Atmospheric Retrieval</div>
+      <div class="card-desc">ML-based atmospheric retrieval from exoplanet transmission spectra. Benchmarks MLP, SVR, XGBoost on the Ariel Big Data Challenge + real JWST observations of WASP-39b. XGBoost generalizes where neural models collapse. Paper under review at <strong>Scientific Reports (Springer Nature)</strong>.</div>
+      <div class="card-nums">
+        <div class="card-num"><b>5</b><small>target gases</small></div>
+        <div class="card-num"><b>JWST</b><small>validated against</small></div>
+      </div>
+      <div class="card-tags">
+        <span class="t">XGBoost</span><span class="t">scikit-learn</span><span class="t">Optuna</span>
+        <span class="t">JWST data</span>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="sys" style="--card-color:var(--teal)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon sys">📡</div>
+          <span class="card-badge b-sys">systems</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/lostping" target="_blank" class="card-link">github ↗</a>
+        </div>
+      </div>
+      <div class="card-name">lostping</div>
+      <div class="card-desc">AIS vessel anomaly detection — flags ships going dark, loitering, or moving erratically. Targets sanctions evasion and illegal fishing. Interactive Folium map + scored JSON report.</div>
+      <div class="card-nums">
+        <div class="card-num"><b>7.3M</b><small>pings processed</small></div>
+        <div class="card-num"><b>4,621</b><small>vessels scored</small></div>
+        <div class="card-num"><b>~3 min</b><small>full pipeline</small></div>
+      </div>
+      <div class="card-tags">
+        <span class="t">Python</span><span class="t">Isolation Forest</span><span class="t">DBSCAN</span>
+        <span class="t">Folium</span><span class="t">Geospatial</span>
+      </div>
+    </div>
+
+    <!-- ═══ ML / AI ═══ -->
+    <div class="card reveal" data-cat="ml" style="--card-color:var(--teal)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon ml">📻</div>
+          <span class="card-badge b-ml">ml / ai</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/AMC-Automatic-Modulation-Classification-" target="_blank" class="card-link">github ↗</a>
+        </div>
+      </div>
+      <div class="card-name">AMCNetV5</div>
+      <div class="card-desc">Classifies radio signals into 11 modulation types from raw IQ data. Physics-informed 1D CNN with CBAM attention. Beats the IEEE WCL 2020 MCLDNN baseline at high SNR (93% vs 90%).</div>
+      <div class="card-nums">
+        <div class="card-num"><b>93.06%</b><small>high-SNR accuracy</small></div>
+        <div class="card-num"><b>1.26M</b><small>parameters</small></div>
+        <div class="card-num"><b>11</b><small>modulation types</small></div>
+      </div>
+      <div class="card-tags">
+        <span class="t">PyTorch</span><span class="t">CBAM</span><span class="t">1D CNN</span><span class="t">RadioML</span>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="ml" style="--card-color:var(--teal)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon ml">🕸️</div>
+          <span class="card-badge b-ml">ml / ai</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/SybilGAT" target="_blank" class="card-link">github ↗</a>
+        </div>
+      </div>
+      <div class="card-name">SybilGAT</div>
+      <div class="card-desc">Graph Attention Network for Twitter bot detection. Core finding: GAT attention weights suppress bot→human camouflage edges — statistically proven at p &lt; 10⁻⁴¹ via Mann-Whitney U test.</div>
+      <div class="card-nums">
+        <div class="card-num"><b>97.12%</b><small>accuracy</small></div>
+        <div class="card-num"><b>p &lt; 10⁻⁴¹</b><small>significance</small></div>
+        <div class="card-num"><b>14,368</b><small>users analyzed</small></div>
+      </div>
+      <div class="card-tags">
+        <span class="t">PyTorch Geometric</span><span class="t">GAT</span><span class="t">GNNExplainer</span>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="ml" style="--card-color:var(--teal)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon ml">🔎</div>
+          <span class="card-badge b-ml">ml / ai</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/rag-doc-qa" target="_blank" class="card-link">github ↗</a>
+        </div>
+      </div>
+      <div class="card-name">rag-doc-qa</div>
+      <div class="card-desc">Upload any PDF, ask questions in plain English. Fully offline RAG via Ollama — no cloud APIs. Custom RAGAS-style eval harness tracks retrieval quality across experiments.</div>
+      <div class="card-tags">
+        <span class="t">LangChain</span><span class="t">Chroma</span><span class="t">Ollama</span>
+        <span class="t">FastAPI</span><span class="t">Docker</span>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="res" style="--card-color:var(--rose)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon res">🛡️</div>
+          <span class="card-badge b-res">research</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/harshithhraya/real-time-intrusion-detection-system" target="_blank" class="card-link">github ↗</a>
+        </div>
+      </div>
+      <div class="card-name">Real-Time IDS</div>
+      <div class="card-desc">BiLSTM-powered network intrusion detection. Live packet capture via tshark, classifies traffic into Normal, DoS, Probe, R2L, U2R on NSL-KDD. 99.16% accuracy, 0.83% FPR.</div>
+      <div class="card-nums">
+        <div class="card-num"><b>99.16%</b><small>accuracy</small></div>
+        <div class="card-num"><b>0.83%</b><small>false positive rate</small></div>
+      </div>
+      <div class="card-tags">
+        <span class="t">TensorFlow</span><span class="t">BiLSTM</span><span class="t">tshark</span><span class="t">NSL-KDD</span>
+      </div>
+    </div>
+
+    <!-- ═══ DEV TOOLS ═══ -->
+    <div class="card reveal" data-cat="dt" style="--card-color:var(--emerald)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon dt">📋</div>
+          <span class="card-badge b-dt">dev tools</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/jot" target="_blank" class="card-link">github ↗</a>
+          <a href="https://pypi.org/project/jot-history/" target="_blank" class="card-link">pypi ↗</a>
+        </div>
+      </div>
+      <div class="card-name">jot</div>
+      <div class="card-desc">Clipboard history manager for the terminal. Tracks text + images, deduplicates by content hash, background daemon, dead-simple CLI. On PyPI.</div>
+      <div class="card-tags">
+        <span class="t">Python</span><span class="t">SQLite</span><span class="t">PyPI</span>
+        <span class="t">click</span><span class="t">rich</span>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="dt" style="--card-color:var(--emerald)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon dt">😏</div>
+          <span class="card-badge b-dt">dev tools</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/waitpal" target="_blank" class="card-link">github ↗</a>
+          <a href="https://pypi.org/project/waitpal/" target="_blank" class="card-link">pypi ↗</a>
+        </div>
+      </div>
+      <div class="card-name">waitpal</div>
+      <div class="card-desc">Passive terminal companion — shows witty one-liners in your PowerShell. 1000+ original entries: fake facts, Indian observations, shower thoughts. 70% believable, 30% nonsense.</div>
+      <div class="card-tags">
+        <span class="t">Python</span><span class="t">PowerShell</span><span class="t">PyPI</span>
+      </div>
+    </div>
 
   </div>
 
-  <div class="container">
-
-    <section>
-
-      <div class="about-section">
-
-        <div>
-
-          <div class="about-label">// About</div>
-
-          <h2 class="about-heading">
-            About<br>
-            <span class="accent">Me.</span>
-          </h2>
-
-          <p class="about-body">
-            I'm Dhruv, a third year Information Science student at BMS College of Engineering, Bangalore.
-            I build systems that turn ML ideas into production-ready tools across backend systems,
-            probabilistic data structures, and applied ML.
-          </p>
-
-          <div class="contact-links">
-            <a href="mailto:dhruvh3vedi@gmail.com" class="btn btn-red">Contact Me</a>
-            <a href="resume__Dhruv%20H.pdf" target="_blank" rel="noopener" class="btn btn-red">Resume</a>
-          </div>
-
-        </div>
-
-        <div class="about-right">
-
-          <div class="about-skills-label">// Stack</div>
-
-          <div class="skill-row">
-            <span class="skill-name">Languages</span>
-            <span class="skill-tools">Python · C++ · JavaScript · Java</span>
-          </div>
-
-          <div class="skill-row">
-            <span class="skill-name">ML / AI</span>
-            <span class="skill-tools">PyTorch · LangChain · scikit-learn</span>
-          </div>
-
-          <div class="skill-row">
-            <span class="skill-name">Backend</span>
-            <span class="skill-tools">FastAPI · Flask · Express · Spring Boot</span>
-          </div>
-
-          <div class="skill-row">
-            <span class="skill-name">Infra</span>
-            <span class="skill-tools">Docker · Redis · PostgreSQL · Render</span>
-          </div>
-
-          <div class="skill-row">
-            <span class="skill-name">Frontend</span>
-            <span class="skill-tools">React · Vite · Socket.IO</span>
-          </div>
-
-        </div>
-
+  <!-- CURRENTLY -->
+  <div class="currently">
+    <div class="cur-card reveal">
+      <div class="cur-emoji">🔬</div>
+      <div class="cur-text">
+        <div class="cur-label">currently building</div>
+        <p>More systems projects focused on <strong>distributed infrastructure</strong> and <strong>applied ML at scale</strong></p>
       </div>
-
-    </section>
-
-    <footer>
-      <span class="footer-tag"><span class="slash">//</span> Build...</span>
-      <span class="footer-tag">dhruv-0512 · 2026</span>
-    </footer>
-
+    </div>
+    <div class="cur-card reveal">
+      <div class="cur-emoji">📚</div>
+      <div class="cur-text">
+        <div class="cur-label">currently learning</div>
+        <p>Deeper into <strong>graph neural networks</strong>, <strong>systems design</strong>, and anything that makes computers do interesting things</p>
+      </div>
+    </div>
   </div>
+</section>
 
-  <script>
-    const root = document.documentElement;
-    const toggle = document.querySelector('[data-theme-toggle]');
+<div class="divider"></div>
 
-    const getPreferredTheme = () => {
-      const saved = localStorage.getItem('theme');
-      if (saved === 'light' || saved === 'dark') {
-        return saved;
+<!-- ABOUT -->
+<section id="about">
+  <div class="eyebrow">about</div>
+  <h2 class="heading">Who I <span>am</span></h2>
+
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        I'm <strong>Dhruv</strong>, a third year Information Science student at
+        <strong>BMS College of Engineering, Bangalore</strong>.
+      </p>
+      <p>I build systems that turn ML ideas into production-ready tools across backend systems, probabilistic data structures, and applied ML.</p>
+      <p>
+        My favorite kind of problem is the one where you need to understand the math
+        <em>and</em> make the system fast.
+      </p>
+      <p class="quirk">
+        When I'm bored, I write fake facts and shower thoughts for waitpal.
+      </p>
+      <div style="margin-top: 24px; display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="#contact" class="btn btn-fill">get in touch →</a>
+        <a href="https://dhruvtrivedi.me/resume__Dhruv%20H.pdf" target="_blank" class="btn btn-line">résumé ↗</a>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="sk-group">
+        <span class="sk-label">languages</span>
+        <div class="sk-pills">
+          <span class="sk-pill">Python</span><span class="sk-pill">C++</span>
+          <span class="sk-pill">JavaScript</span><span class="sk-pill">Java</span>
+          <span class="sk-pill">C</span>
+        </div>
+      </div>
+      <div class="sk-group">
+        <span class="sk-label">ml / ai</span>
+        <div class="sk-pills">
+          <span class="sk-pill">PyTorch</span>
+          <span class="sk-pill">LangChain</span><span class="sk-pill">scikit-learn</span>
+          <span class="sk-pill">XGBoost</span><span class="sk-pill">PyTorch Geometric</span>
+        </div>
+      </div>
+      <div class="sk-group">
+        <span class="sk-label">backend</span>
+        <div class="sk-pills">
+          <span class="sk-pill">FastAPI</span><span class="sk-pill">Flask</span>
+          <span class="sk-pill">Django REST</span><span class="sk-pill">Express</span>
+          <span class="sk-pill">Spring Boot</span>
+        </div>
+      </div>
+      <div class="sk-group">
+        <span class="sk-label">infra & tools</span>
+        <div class="sk-pills">
+          <span class="sk-pill">Docker</span><span class="sk-pill">Redis</span>
+          <span class="sk-pill">PostgreSQL</span><span class="sk-pill">MongoDB</span>
+          <span class="sk-pill">React</span><span class="sk-pill">Vite</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="eyebrow">contact</div>
+  <div class="contact-grid">
+    <div class="reveal">
+      <h2 class="contact-big">
+        Let's<br><span class="a">talk</span><br>
+        <span class="sub">I'm looking for internships and full-time roles.<br>and interesting engineering problems.</span>
+      </h2>
+    </div>
+    <div class="c-links reveal">
+      <a href="mailto:dhruvh0530@gmail.com" class="c-link">
+        <span class="cl-label">email</span>
+        <span class="cl-val">dhruvh0530@gmail.com</span>
+      </a>
+      <a href="https://github.com/dhruv-0512" target="_blank" class="c-link">
+        <span class="cl-label">github</span>
+        <span class="cl-val">dhruv-0512 ↗</span>
+      </a>
+      <a href="https://www.linkedin.com/in/dhruv-trivedi-3005d/" target="_blank" class="c-link">
+        <span class="cl-label">linkedin</span>
+        <span class="cl-val">dhruv-trivedi-3005d ↗</span>
+      </a>
+      <a href="https://pypi.org/user/dhruv3vedi/" target="_blank" class="c-link">
+        <span class="cl-label">pypi</span>
+        <span class="cl-val">dhruv3vedi ↗</span>
+      </a>
+      <a href="https://dhruvtrivedi.me/resume__Dhruv%20H.pdf" target="_blank" class="c-link">
+        <span class="cl-label">résumé</span>
+        <span class="cl-val">download PDF ↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>dhruv h · 2026</p>
+  <p class="fa">built for what's next</p>
+</footer>
+
+<script>
+  // ── Interactive CLI Terminal ──
+  (function() {
+    const output = document.getElementById('termOutput');
+    const input = document.getElementById('termInput');
+    const body = document.getElementById('termBody');
+
+    const cmds = {
+      help:    { section: null,   desc: 'Show this help menu' },
+      projects:{ section: 'work', desc: 'View my projects' },
+      skills:  { section: 'about',desc: 'View my skills & tools' },
+      experience:{section:'about',desc: 'View my experience' },
+      contact: { section: 'contact',desc: 'Get in touch' },
+      whoami:  { section: 'about',desc: 'About me' },
+      clear:   { section: null,   desc: 'Clear the terminal' }
+    };
+
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function print(text, cls) {
+      const d = document.createElement('div');
+      d.className = 'term-line' + (cls ? ' ' + cls : '');
+      d.innerHTML = text;
+      output.appendChild(d);
+      output.scrollTop = output.scrollHeight;
+    }
+
+    function typeLine(text, cls, cb) {
+      const d = document.createElement('div');
+      d.className = 'term-line' + (cls ? ' ' + cls : '');
+      d.classList.add('term-typing');
+      d.innerHTML = text;
+      // hide content, reveal char by char
+      const txt = d.textContent;
+      d.textContent = '';
+      output.appendChild(d);
+      let i = 0;
+      function tick() {
+        if (i < txt.length) {
+          d.textContent += txt[i];
+          i++;
+          output.scrollTop = output.scrollHeight;
+          setTimeout(tick, 14 + Math.random() * 18);
+        } else {
+          d.classList.remove('term-typing');
+          d.innerHTML = text;
+          if (cb) cb();
+        }
       }
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    };
+      tick();
+    }
 
-    const applyTheme = (theme) => {
-      root.setAttribute('data-theme', theme);
-      toggle.setAttribute('aria-pressed', theme === 'dark');
-      toggle.querySelector('span:last-child').textContent = theme === 'dark' ? 'Dark' : 'Light';
-      localStorage.setItem('theme', theme);
-    };
+    function processCmd(raw) {
+      const cmd = raw.trim().toLowerCase();
+      if (!cmd) return;
 
-    applyTheme(getPreferredTheme());
+      const p = document.createElement('div');
+      p.className = 'term-line';
+      p.innerHTML = '<span class="prompt">❯</span> <span class="cmd">' + raw.trim() + '</span>';
+      output.appendChild(p);
 
-    toggle.addEventListener('click', () => {
-      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      applyTheme(next);
+      if (cmd === 'clear') {
+        output.innerHTML = '';
+        return;
+      }
+
+      const info = cmds[cmd];
+      if (!info) {
+        typeLine('zsh: command not found: ' + cmd, 'r', () => {
+          typeLine('hint: type <span class="g">help</span> to see available commands', 'out');
+        });
+        return;
+      }
+
+      if (cmd === 'help') {
+        typeLine('Available commands:', 'c', () => {
+          const keys = Object.keys(cmds);
+          keys.forEach((k, i) => {
+            setTimeout(() => {
+              const last = i === keys.length - 1;
+              typeLine('  <span class="g">' + k.padEnd(12) + '</span> ' + cmds[k].desc, 'out', last ? function() {
+                setTimeout(() => typeLine('Tip: tab to autocomplete, up/down for history', 'out'), 80);
+              } : undefined);
+            }, i * 60);
+          });
+        });
+        return;
+      }
+
+      if (info.section) {
+        typeLine('navigating to <span class="c">' + info.section + '</span>...', 'out', () => {
+          setTimeout(() => scrollToSection(info.section), 300);
+        });
+      }
+    }
+
+    // History
+    let history = [];
+    let histIdx = -1;
+
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const val = this.value;
+        if (val.trim()) {
+          history.push(val.trim());
+          histIdx = history.length;
+        }
+        this.value = '';
+        processCmd(val);
+        e.preventDefault();
+      } else if (e.key === 'ArrowUp') {
+        if (history.length && histIdx > 0) {
+          histIdx--;
+          this.value = history[histIdx];
+        }
+        e.preventDefault();
+      } else if (e.key === 'ArrowDown') {
+        if (histIdx < history.length - 1) {
+          histIdx++;
+          this.value = history[histIdx];
+        } else {
+          histIdx = history.length;
+          this.value = '';
+        }
+        e.preventDefault();
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        const partial = this.value.trim().toLowerCase();
+        if (partial) {
+          const match = Object.keys(cmds).find(k => k.startsWith(partial) && k !== partial);
+          if (match) this.value = match + ' ';
+        }
+      }
     });
-  </script>
 
+    // Boot animation
+    let bootLines = [
+      '<span class="g">  ✔ shell initialized</span>',
+      '<span class="y">  ⚡ ready for input</span>',
+      '',
+      '<span class="out">remember...</span>',
+      '<span class="out">we used to look up at the sky and wonder.</span>',
+      ''
+    ];
+    function boot() {
+      let i = 0;
+      function next() {
+        if (i < bootLines.length) {
+          typeLine(bootLines[i], null, function() {
+            i++;
+            output.scrollTop = output.scrollHeight;
+            setTimeout(next, 120);
+          });
+        } else {
+          setTimeout(function() {
+            typeLine('Type <span class="g">help</span> to see available commands', 'c');
+          }, 200);
+        }
+      }
+      output.innerHTML = '';
+      setTimeout(next, 300);
+    }
+
+    // Boot on load
+    setTimeout(boot, 600);
+
+    // Focus input when clicking terminal
+    body.addEventListener('click', () => input.focus());
+
+    // Keep input visible (but not when clicking filter buttons or other interactive elements)
+    input.addEventListener('blur', function(e) {
+      setTimeout(function() {
+        var active = document.activeElement;
+        if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active === document.body)) {
+          input.focus();
+        }
+      }, 10);
+    });
+  })();
+
+  // nav scroll
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 30));
+
+  // mobile
+  const hb = document.getElementById('hb');
+  const nl = document.getElementById('navLinks');
+  hb.onclick = () => { hb.classList.toggle('open'); nl.classList.toggle('open'); };
+  function mClose() { hb.classList.remove('open'); nl.classList.remove('open'); }
+
+  // filters
+  (function() {
+    var btns = document.querySelectorAll('.f-btn');
+    var cards = document.querySelectorAll('.card[data-cat]');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('click', function() {
+        var activeBtns = document.querySelectorAll('.f-btn');
+        for (var j = 0; j < activeBtns.length; j++) {
+          activeBtns[j].classList.remove('active');
+        }
+        this.classList.add('active');
+        var filter = this.getAttribute('data-f');
+        for (var k = 0; k < cards.length; k++) {
+          if (filter === 'all' || cards[k].getAttribute('data-cat') === filter) {
+            cards[k].style.removeProperty('display');
+          } else {
+            cards[k].style.display = 'none';
+          }
+        }
+      });
+    }
+  })();
+
+  // reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('vis'), (i % 6) * 50);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
 </body>
-
 </html>
