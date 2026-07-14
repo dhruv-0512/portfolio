@@ -1191,15 +1191,6 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
     // Focus input when clicking terminal
     body.addEventListener('click', () => input.focus());
 
-    // Keep input visible (but not when clicking filter buttons or other interactive elements)
-    input.addEventListener('blur', function(e) {
-      setTimeout(function() {
-        var active = document.activeElement;
-        if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active === document.body)) {
-          input.focus();
-        }
-      }, 10);
-    });
   })();
 
   // nav scroll
