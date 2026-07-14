@@ -417,6 +417,42 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   }
   .sk-pill:hover { border-color: var(--border-strong); color: var(--text); }
 
+  /* ══════════ EXPERIENCE ══════════ */
+  .exp-list { display: flex; flex-direction: column; gap: 12px; }
+  .exp-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--r); padding: 22px 26px;
+    display: flex; align-items: center; gap: 20px;
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  .exp-card:hover {
+    background: var(--bg-card-hover); transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+    border-color: rgba(15,118,110,0.2);
+  }
+  .exp-logo {
+    width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+    background: var(--teal-soft); border: 1px solid rgba(15,118,110,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 18px; font-weight: 700;
+    color: var(--teal);
+  }
+  .exp-right { flex: 1; }
+  .exp-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .exp-role { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+  .exp-company { font-size: 13px; color: var(--text-mid); margin-top: 2px; }
+  .exp-meta { display: flex; align-items: center; gap: 10px; }
+  .exp-badge {
+    font-family: var(--mono); font-size: 9.5px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 3px;
+    background: var(--teal-soft); color: var(--teal);
+  }
+  .exp-date {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--text-faint); letter-spacing: 0.02em;
+  }
+
   /* ══════════ CONTACT ══════════ */
   .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
   .contact-big {
@@ -498,6 +534,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   <a href="#" class="nav-brand">dhruv.h</a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#work" onclick="mClose()">work</a></li>
+    <li><a href="#experience" onclick="mClose()">experience</a></li>
     <li><a href="#about" onclick="mClose()">about</a></li>
     <li><a href="#contact" onclick="mClose()">contact</a></li>
     <li><a href="https://dhruvtrivedi.me/dhruv.pdf" target="_blank" class="nav-cta">résumé ↗</a></li>
@@ -513,7 +550,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   <div class="hero-glow"></div>
   <div class="hero-inner">
     <div>
-      <div class="hero-badge"><span class="dot"></span> open to opportunities · bangalore</div>
+      <div class="hero-badge"><span class="dot"></span> SDE Intern @ Profinch Solutions · bangalore</div>
       <h1>Dhruv</h1>
       <p class="hero-value">I turn ideas into software.</p>
       <p class="hero-sub">Backend engineering, machine learning, and systems that solve real-world problems.</p>
@@ -547,7 +584,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
 <!-- STATS -->
 <div class="stats-bar">
   <div class="stat-item">
-    <div class="stat-num">14</div>
+    <div class="stat-num">15</div>
     <div class="stat-label">projects worked on </div>
   </div>
   <div class="stat-item">
@@ -605,6 +642,32 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
       <div class="card-tags">
         <span class="t">Python</span><span class="t">FastAPI</span><span class="t">Bloom Filter</span>
         <span class="t">PostgreSQL</span><span class="t">Redis</span><span class="t">PyPI</span>
+      </div>
+    </div>
+
+    <!-- ═══ QUERYMIND ═══ -->
+    <div class="card wide reveal" data-cat="sys" style="--card-color:var(--violet)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon" style="background:var(--violet-soft);font-size:18px">🧠</div>
+          <span class="card-badge" style="background:var(--violet-soft);color:var(--violet)">systems · ai</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/QueryMind" target="_blank" class="card-link">github ↗</a>
+        </div>
+      </div>
+      <div class="card-name">QueryMind</div>
+      <div class="card-desc">Natural language → SQL platform. Upload a CSV/XLSX/JSON, ask a question in plain English, get instant results. Two-stage RAG pipeline: ChromaDB retrieves schema + top-5 similar question→SQL pairs from ~2,000 Spider/WikiSQL examples, then Gemini 2.5 Flash remaps identifiers to your schema. All data loaded via PostgreSQL COPY protocol; every query cached in Redis and streamed to Kafka for audit. Results render as a formatted table or interactive Recharts chart.</div>
+      <div class="card-nums">
+        <div class="card-num"><b>~2,000</b><small>RAG SQL examples</small></div>
+        <div class="card-num"><b>78%</b><small>RAG-direct threshold</small></div>
+        <div class="card-num"><b>1,000</b><small>row result cap</small></div>
+        <div class="card-num"><b>7</b><small>services orchestrated</small></div>
+      </div>
+      <div class="card-tags">
+        <span class="t">FastAPI</span><span class="t">React 19</span><span class="t">Gemini 2.5 Flash</span>
+        <span class="t">PostgreSQL</span><span class="t">Redis</span><span class="t">Kafka</span>
+        <span class="t">ChromaDB</span><span class="t">Docker Compose</span><span class="t">asyncpg</span>
       </div>
     </div>
 
@@ -821,6 +884,34 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
 
 <div class="divider"></div>
 
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="eyebrow">experience</div>
+  <h2 class="heading">Where I've <span>worked</span></h2>
+
+  <div class="exp-list">
+    <div class="exp-card reveal">
+      <div class="exp-left">
+        <div class="exp-logo">P</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-header">
+          <div>
+            <div class="exp-role">SDE Intern</div>
+            <div class="exp-company">Profinch Solutions</div>
+          </div>
+          <div class="exp-meta">
+            <span class="exp-badge">current</span>
+            <span class="exp-date">July 2026 – present</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <!-- ABOUT -->
 <section id="about">
   <div class="eyebrow">about</div>
@@ -892,7 +983,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
     <div class="reveal">
       <h2 class="contact-big">
         Let's<br><span class="a">talk</span><br>
-        <span class="sub">I'm looking for internships and full-time roles<br>and interesting engineering problems.</span>
+        <span class="sub">Currently an intern.<br>Always open to interesting engineering conversations.</span>
       </h2>
     </div>
     <div class="c-links reveal">
@@ -933,12 +1024,13 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
     const body = document.getElementById('termBody');
 
     const cmds = {
-      help:    { section: null,   desc: 'Show this help menu' },
-      projects:{ section: 'work', desc: 'View my projects' },
-      skills:  { section: 'about',desc: 'View my skills & tools' },
-      contact: { section: 'contact',desc: 'Get in touch' },
-      whoami:  { section: 'about',desc: 'About me' },
-      clear:   { section: null,   desc: 'Clear the terminal' }
+      help:      { section: null,       desc: 'Show this help menu' },
+      projects:  { section: 'work',     desc: 'View my projects' },
+      experience:{ section: 'experience',desc: 'View work experience' },
+      skills:    { section: 'about',    desc: 'View my skills & tools' },
+      contact:   { section: 'contact',  desc: 'Get in touch' },
+      whoami:    { section: 'about',    desc: 'About me' },
+      clear:     { section: null,       desc: 'Clear the terminal' }
     };
 
     function scrollToSection(id) {
