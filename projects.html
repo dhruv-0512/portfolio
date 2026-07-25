@@ -279,6 +279,19 @@ content="All software engineering projects, backend systems, machine learning re
   }
   .card-link:hover { color: var(--accent); }
 
+  .card-paper-btn {
+    font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+    color: #ffffff; background: var(--accent);
+    padding: 8px 16px; border-radius: 20px; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: all 0.2s ease; box-shadow: 0 4px 14px rgba(101, 146, 135, 0.3);
+    margin-left: auto;
+  }
+  .card-paper-btn:hover {
+    background: var(--accent-hover); transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(101, 146, 135, 0.45); color: #ffffff;
+  }
+
   .card-name { font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--text); }
   .card-desc { font-size: 13.5px; color: var(--text-soft); line-height: 1.6; }
 
@@ -457,9 +470,12 @@ content="All software engineering projects, backend systems, machine learning re
         <div class="card-num"><b>Springer Nature</b><small>under review</small></div>
         <div class="card-num"><b>52-Bin</b><small>interpolation pipeline</small></div>
       </div>
-      <div class="card-tags">
-        <span class="t">Python</span><span class="t">XGBoost</span><span class="t">scikit-learn</span><span class="t">Optuna</span>
-        <span class="t">JWST Data</span><span class="t">Ariel Challenge</span>
+      <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: auto; padding-top: 10px;">
+        <div class="card-tags" style="margin-top: 0;">
+          <span class="t">Python</span><span class="t">XGBoost</span><span class="t">scikit-learn</span><span class="t">Optuna</span>
+          <span class="t">JWST Data</span><span class="t">Ariel Challenge</span>
+        </div>
+        <a href="paper.pdf" target="_blank" class="card-paper-btn">Check Paper Here 📄 ↗</a>
       </div>
     </div>
 
