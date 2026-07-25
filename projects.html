@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description"
+content="All software engineering projects, backend systems, machine learning research, and developer tools built by Dhruv H.">
+<title>Projects & Systems | Dhruv H</title>
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+<link rel="manifest" href="./site.webmanifest">
+<link rel="shortcut icon" href="./favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f6f2;
+    --bg-warm: #e8f1f5;
+    --bg-card: rgba(255,255,255,0.95);
+    --bg-card-hover: #ffffff;
+    --bg-deep: #dce7ec;
+    --border: rgba(101,146,135,0.16);
+    --border-strong: rgba(101,146,135,0.24);
+    --text: #16324f;
+    --text-mid: #2f4b63;
+    --text-soft: #4f677b;
+    --text-faint: #6b7d8a;
+    --accent: #659287;
+    --accent-hover: #4e7a6f;
+    --accent-soft: rgba(101,146,135,0.14);
+    --teal: #88bda4;
+    --teal-soft: rgba(136,189,164,0.14);
+    --violet: #b1d3b9;
+    --violet-soft: rgba(177,211,185,0.18);
+    --rose: #e6f2dd;
+    --rose-soft: rgba(230,242,221,0.24);
+    --emerald: #4f7d6c;
+    --emerald-soft: rgba(79,125,108,0.12);
+    --slate: #5f7c8a;
+    --slate-soft: rgba(95,124,138,0.1);
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --r: 14px;
+    --r-sm: 8px;
+  }
+
+  body {
+    background: linear-gradient(180deg, #f8f7f3 0%, #f3f6f5 100%);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.65;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  #aurora-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(rgba(0,0,0,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.018) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: linear-gradient(180deg, rgba(0,0,0,0.18), transparent 88%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  ::selection { background: rgba(101,146,135,0.22); color: #16324f; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 3px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 48px; height: 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: all 0.35s;
+  }
+  nav.scrolled {
+    background: rgba(248,249,252,0.86);
+    backdrop-filter: blur(16px) saturate(1.15);
+    box-shadow: 0 1px 0 var(--border);
+  }
+  .nav-brand {
+    font-family: var(--mono); font-size: 14px; font-weight: 600;
+    color: var(--accent); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+  .nav-links a {
+    font-family: var(--mono); font-size: 11.5px; font-weight: 500;
+    color: var(--text-soft); text-decoration: none; letter-spacing: 0.03em;
+    transition: color 0.2s; padding: 4px 0; position: relative;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -2px; left: 0;
+    width: 0; height: 1.5px; background: var(--accent);
+    transition: width 0.25s ease; border-radius: 1px;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  .hamburger {
+    display: none; background: none; border: none; cursor: pointer;
+    width: 26px; height: 18px; position: relative; z-index: 101;
+  }
+  .hamburger span {
+    display: block; width: 100%; height: 2px; background: var(--text-mid);
+    border-radius: 1px; transition: all 0.3s; position: absolute; left: 0;
+  }
+  .hamburger span:nth-child(1) { top: 0; }
+  .hamburger span:nth-child(2) { top: 8px; }
+  .hamburger span:nth-child(3) { top: 16px; }
+  .hamburger.open span:nth-child(1) { top: 8px; transform: rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { top: 8px; transform: rotate(-45deg); }
+
+  /* HEADER & CONTAINER */
+  .page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 48px 80px;
+  }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+    color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .heading {
+    font-size: clamp(28px, 4vw, 44px); font-weight: 700;
+    letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 16px;
+  }
+  .heading span { color: var(--text-faint); }
+  .page-desc {
+    font-size: 16px; color: var(--text-soft); max-width: 680px;
+    margin-bottom: 32px; line-height: 1.6;
+  }
+
+  /* BUTTONS */
+  .btn {
+    font-family: var(--mono); font-size: 12.5px; font-weight: 600;
+    padding: 9px 20px; border-radius: var(--r-sm); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: all 0.2s; cursor: pointer; border: none;
+  }
+  .btn-fill {
+    background: var(--accent); color: #ffffff;
+    box-shadow: 0 8px 20px rgba(90,74,54,0.14);
+  }
+  .btn-fill:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 12px 24px rgba(90,74,54,0.18); }
+  .btn-line {
+    background: rgba(255,255,255,0.9); color: var(--text);
+    border: 1px solid var(--border-strong);
+    backdrop-filter: blur(10px);
+  }
+  .btn-line:hover { border-color: var(--accent); color: var(--accent); background: rgba(101,146,135,0.10); transform: translateY(-2px); }
+
+  /* FILTERS */
+  .filters { display: flex; gap: 8px; margin-bottom: 36px; flex-wrap: wrap; }
+  .f-btn {
+    font-family: var(--mono); font-size: 11.5px; font-weight: 600;
+    padding: 7px 18px; background: rgba(101,146,135,0.08); color: var(--text-soft);
+    border: 1px solid rgba(101,146,135,0.18); border-radius: 20px;
+    cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em;
+  }
+  .f-btn:hover { border-color: rgba(101,146,135,0.35); color: var(--text); background: rgba(101,146,135,0.14); }
+  .f-btn.active {
+    background: var(--accent); color: #fff;
+    border-color: var(--accent); font-weight: 700;
+  }
+
+  /* GRID & CARDS */
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+  .card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 18px; padding: 24px 26px;
+    display: flex; flex-direction: column; gap: 14px;
+    position: relative; transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(17,24,39,0.05);
+    backdrop-filter: blur(10px);
+    transform: translate3d(0, var(--scroll-shift, 0px), 0);
+  }
+  .card::before {
+    content: ''; position: absolute; inset: 0 0 auto 0; height: 3px;
+    background: linear-gradient(90deg, var(--card-color, var(--accent)), transparent);
+    opacity: 0.9;
+  }
+  .card::after {
+    content: ''; position: absolute; inset: 0; border-radius: 18px;
+    box-shadow: inset 0 0 0 1.5px transparent;
+    transition: box-shadow 0.3s; pointer-events: none;
+  }
+  .card:hover {
+    background: var(--bg-card-hover); transform: translateY(-3px);
+    box-shadow: 0 16px 42px rgba(17,24,39,0.09);
+  }
+  .card:hover::after { box-shadow: inset 0 0 0 1.5px var(--card-color, var(--accent)); }
+  .card.in-view {
+    background: linear-gradient(180deg, rgba(101,146,135,0.04), rgba(255,255,255,0.98));
+    border-color: rgba(101,146,135,0.15);
+  }
+  .card.wide { grid-column: span 2; }
+  .card.hidden { display: none !important; }
+
+  .card-bullet-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 4px 0 6px;
+  }
+  .card-bullet-list li {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.55;
+    position: relative;
+    padding-left: 14px;
+    list-style: none;
+  }
+  .card-bullet-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+  }
+
+  .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .card-icon {
+    width: 38px; height: 38px; border-radius: 10px; display: flex;
+    align-items: center; justify-content: center; font-size: 16px;
+    flex-shrink: 0;
+  }
+  .card-icon.sys { background: var(--accent-soft); }
+  .card-icon.ml { background: var(--teal-soft); }
+  .card-icon.res { background: var(--rose-soft); }
+  .card-icon.dt { background: var(--emerald-soft); }
+
+  .card-head-left { display: flex; align-items: center; gap: 10px; }
+  .card-badge {
+    font-family: var(--mono); font-size: 9.5px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 3px;
+  }
+  .b-sys { background: var(--accent-soft); color: var(--accent); }
+  .b-ml { background: var(--teal-soft); color: var(--teal); }
+  .b-res { background: var(--rose-soft); color: var(--emerald); }
+  .b-dt { background: var(--emerald-soft); color: var(--emerald); }
+
+  .card-links { display: flex; gap: 10px; }
+  .card-link {
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    color: var(--text-soft); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 4px;
+    transition: color 0.2s;
+  }
+  .card-link:hover { color: var(--accent); }
+
+  .card-name { font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--text); }
+  .card-desc { font-size: 13.5px; color: var(--text-soft); line-height: 1.6; }
+
+  .card-nums {
+    display: flex; gap: 16px; padding: 12px 14px;
+    background: rgba(101,146,135,0.06); border-radius: 10px; flex-wrap: wrap;
+  }
+  .card-num { display: flex; flex-direction: column; }
+  .card-num b { font-family: var(--mono); font-size: 14px; font-weight: 700; color: var(--text); }
+  .card-num small { font-size: 10.5px; color: var(--text-faint); margin-top: 1px; }
+
+  .card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .t {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 500;
+    color: var(--text-soft); background: rgba(0,0,0,0.04);
+    padding: 2px 8px; border-radius: 4px;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border); padding: 24px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 1200px; margin: 0 auto;
+  }
+  footer p { font-family: var(--mono); font-size: 11px; color: var(--text-faint); }
+  footer .fa { color: var(--accent); }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+  .reveal.vis { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 1024px) {
+    .grid { grid-template-columns: 1fr; }
+    .card.wide { grid-column: span 1; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .page-container { padding: 80px 20px 48px; }
+    .nav-links {
+      position: fixed; top: 0; right: -100%; width: 240px; height: 100vh;
+      background: var(--bg-card); flex-direction: column; padding: 72px 28px 28px;
+      gap: 20px; transition: right 0.3s ease;
+      box-shadow: -6px 0 24px rgba(0,0,0,0.15); border-left: 1px solid var(--border);
+    }
+    .nav-links.open { right: 0; }
+    .hamburger { display: block; }
+    footer { padding: 20px; flex-direction: column; gap: 4px; text-align: center; }
+  }
+</style>
+<noscript>
+<style>.reveal { opacity: 1 !important; transform: none !important; }</style>
+</noscript>
+</head>
+<body>
+
+<canvas id="aurora-canvas"></canvas>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-brand">dhruv.h</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#work" onclick="mClose()">home</a></li>
+    <li><a href="index.html#experience" onclick="mClose()">experience</a></li>
+    <li><a href="index.html#about" onclick="mClose()">about</a></li>
+    <li><a href="index.html#contact" onclick="mClose()">contact</a></li>
+  </ul>
+  <button class="hamburger" id="hb" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-container">
+  <div style="margin-bottom: 24px;">
+    <a href="index.html#work" class="btn btn-line">← Back to Main Portfolio</a>
+  </div>
+
+  <div class="eyebrow">projects & systems</div>
+  <h1 class="heading">All <span>Projects</span></h1>
+  <p class="page-desc">Comprehensive list of my backend systems, machine learning models, distributed infrastructure, and open-source developer tools.</p>
+
+  <!-- CLASSIFIERS / FILTERS -->
+  <div class="filters">
+    <button class="f-btn active" data-f="all">all</button>
+    <button class="f-btn" data-f="sys">systems</button>
+    <button class="f-btn" data-f="ml">ml / ai</button>
+    <button class="f-btn" data-f="res">research</button>
+    <button class="f-btn" data-f="dt">dev tools</button>
+  </div>
+
+  <!-- ALL PROJECTS GRID -->
+  <div class="grid" id="grid">
+
+    <!-- DVARA -->
+    <div class="card wide reveal" data-cat="sys" style="--card-color:var(--accent)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon sys">⚙</div>
+          <span class="card-badge b-sys">systems</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/dvara" target="_blank" class="card-link">github ↗</a>
+          <a href="http://13.61.0.125:8000/" target="_blank" class="card-link">live ↗</a>
+          <a href="https://pypi.org/project/dvara/" target="_blank" class="card-link">pypi ↗</a>
+        </div>
+      </div>
+      <div class="card-name">dvara</div>
+      <div class="card-desc">Malicious URL detection via Bloom Filter — Published PyPI package using probabilistic data structures for high-performance security threat indexing.</div>
+      <ul class="card-bullet-list">
+        <li>Indexed 268K+ threat URLs (URLhaus, PhishTank, OpenPhish, CERT Polska) into a 5.14MB Bloom Filter sized for 3M URLs at 0.1% target FPR (1/100th memory of a hash set).</li>
+        <li>Designed two-stage lookup pipeline (~0.003ms Bloom check, 145K URLs/sec throughput, PostgreSQL confirmation only on hits) validated to 0 false negatives & 0 false positives across 100K test URLs.</li>
+        <li>Self-hosted full stack (FastAPI, PostgreSQL, Redis) on AWS EC2 via Docker Compose.</li>
+      </ul>
+      <div class="card-nums">
+        <div class="card-num"><b>268,970+</b><small>URLs indexed</small></div>
+        <div class="card-num"><b>145k/s</b><small>throughput</small></div>
+        <div class="card-num"><b>5.14 MB</b><small>filter size</small></div>
+        <div class="card-num"><b>0 FN / FP</b><small>100k test URLs</small></div>
+      </div>
+      <div class="card-tags">
+        <span class="t">Python</span><span class="t">FastAPI</span><span class="t">Bloom Filter</span>
+        <span class="t">PostgreSQL</span><span class="t">Redis</span><span class="t">Docker Compose</span><span class="t">AWS EC2</span><span class="t">PyPI</span>
+      </div>
+    </div>
+
+    <!-- QUERYMIND -->
+    <div class="card wide reveal" data-cat="sys" style="--card-color:var(--violet)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon" style="background:var(--violet-soft);font-size:18px">◈</div>
+          <span class="card-badge" style="background:var(--violet-soft);color:var(--violet)">systems × ai</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/QueryMind" target="_blank" class="card-link">github ↗</a>
+        </div>
+      </div>
+      <div class="card-name">QueryMind</div>
+      <div class="card-desc">Natural language to SQL platform enabling instant English-to-SQL analytics over CSV, Excel, and JSON datasets.</div>
+      <ul class="card-bullet-list">
+        <li>Built two-stage RAG pipeline retrieving DDL embeddings & SQL examples from a curated Spider/WikiSQL pool in ChromaDB, with Gemini 2.5 Flash generating validated SQL executed against isolated per-user PostgreSQL schemas.</li>
+        <li>Designed event-driven architecture with Kafka (KRaft) across 4 topics & Audit Consumer persisting events to PostgreSQL, with Redis sliding window rate limiting and interactive Recharts visualizations.</li>
+      </ul>
+      <div class="card-nums">
+        <div class="card-num"><b>Spider / WikiSQL</b><small>RAG vector pool</small></div>
+        <div class="card-num"><b>4 Topics</b><small>Kafka KRaft event pipeline</small></div>
+        <div class="card-num"><b>Isolated</b><small>per-user Postgres schemas</small></div>
+        <div class="card-num"><b>Gemini 2.5</b><small>validated SQL gen</small></div>
+      </div>
+      <div class="card-tags">
+        <span class="t">FastAPI</span><span class="t">PostgreSQL</span><span class="t">Redis</span><span class="t">Kafka (KRaft)</span>
+        <span class="t">ChromaDB</span><span class="t">Gemini 2.5</span><span class="t">React</span><span class="t">asyncpg</span>
+      </div>
+    </div>
+
+    <!-- EXOPLANET ATMOSPHERIC RETRIEVAL -->
+    <div class="card wide reveal" data-cat="res" style="--card-color:var(--rose)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon res">◎</div>
+          <span class="card-badge b-res">research</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/Exoplanet-Atmospheric-Retrieval" target="_blank" class="card-link">github ↗</a>
+        </div>
+      </div>
+      <div class="card-name">Exoplanet Atmospheric Retrieval</div>
+      <div class="card-desc">ML-based Exoplanet Atmospheric Retrieval — Research manuscript under review @ Scientific Reports.</div>
+      <ul class="card-bullet-list">
+        <li>Owned model training & pipeline design on team research project benchmarking MLP, SVR, and XGBoost on Ariel Big Data Challenge dataset to retrieve 5 gas abundances & equilibrium temperature from transmission spectra.</li>
+        <li>XGBoost generalised best to real JWST NIRSpec observations of WASP-39b (matching published retrieval results); validated generalisation across all 5 atmospheric gases on out-of-distribution real JWST observational data.</li>
+      </ul>
+      <div class="card-nums">
+        <div class="card-num"><b>5 Gases + Temp</b><small>atmospheric retrieval</small></div>
+        <div class="card-num"><b>JWST WASP-39b</b><small>real data validated</small></div>
+        <div class="card-num"><b>Scientific Reports</b><small>under review</small></div>
+        <div class="card-num"><b>52-Bin</b><small>interpolation pipeline</small></div>
+      </div>
+      <div class="card-tags">
+        <span class="t">Python</span><span class="t">XGBoost</span><span class="t">scikit-learn</span><span class="t">Optuna</span>
+        <span class="t">JWST Data</span><span class="t">Ariel Challenge</span>
+      </div>
+    </div>
+
+    <!-- FLUXGATE -->
+    <div class="card wide reveal" data-cat="sys" style="--card-color:var(--accent)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon sys">⚙</div>
+          <span class="card-badge b-sys">systems</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/fluxgate" target="_blank" class="card-link">github ↗</a>
+        </div>
+      </div>
+      <div class="card-name">FluxGate</div>
+      <div class="card-desc">Distributed rate limiter infrastructure with Redis Lua enforcement, hot config reload, and live WebSocket monitoring dashboard.</div>
+      <ul class="card-bullet-list">
+        <li>High-throughput rate limiting engine supporting 4 algorithms (sliding window log, token bucket, leaky bucket, fixed window) with atomic Redis Lua script execution.</li>
+        <li>Hot configuration reloading without service downtime, real-time WebSocket metric streaming, and PostgreSQL persistent audit logging.</li>
+      </ul>
+      <div class="card-nums">
+        <div class="card-num"><b>4K+ RPS</b><small>load tested throughput</small></div>
+        <div class="card-num"><b>~12ms</b><small>p50 latency</small></div>
+        <div class="card-num"><b>4</b><small>rate limit algorithms</small></div>
+      </div>
+      <div class="card-tags">
+        <span class="t">FastAPI</span><span class="t">Redis Lua</span><span class="t">PostgreSQL</span>
+        <span class="t">React</span><span class="t">WebSockets</span>
+      </div>
+    </div>
+
+    <!-- LOSTPING -->
+    <div class="card reveal" data-cat="sys" style="--card-color:var(--teal)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon sys">⚙</div>
+          <span class="card-badge b-sys">systems</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/lostping" target="_blank" class="card-link">github ↗</a>
+        </div>
+      </div>
+      <div class="card-name">lostping</div>
+      <div class="card-desc">AIS vessel anomaly detection that flags suspicious ship behavior and generates scored geospatial reports.</div>
+      <div class="card-nums">
+        <div class="card-num"><b>7.3M</b><small>pings processed</small></div>
+        <div class="card-num"><b>4,621</b><small>vessels scored</small></div>
+        <div class="card-num"><b>~3 min</b><small>full pipeline</small></div>
+      </div>
+      <div class="card-tags">
+        <span class="t">Python</span><span class="t">Isolation Forest</span><span class="t">DBSCAN</span>
+        <span class="t">Folium</span><span class="t">Geospatial</span>
+      </div>
+    </div>
+
+    <!-- SYBILGAT -->
+    <div class="card reveal" data-cat="ml" style="--card-color:var(--teal)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon ml">◈</div>
+          <span class="card-badge b-ml">ml / ai</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/SybilGAT" target="_blank" class="card-link">github ↗</a>
+        </div>
+      </div>
+      <div class="card-name">SybilGAT</div>
+      <div class="card-desc">Graph Attention Network for bot detection with statistically validated attention behavior and GNNExplainer interpretability.</div>
+      <div class="card-nums">
+        <div class="card-num"><b>97.12%</b><small>accuracy</small></div>
+        <div class="card-num"><b>p &lt; 10<sup>-5</sup></b><small>significance</small></div>
+        <div class="card-num"><b>14,368</b><small>users analyzed</small></div>
+      </div>
+      <div class="card-tags">
+        <span class="t">PyTorch Geometric</span><span class="t">GAT</span><span class="t">GNNExplainer</span>
+      </div>
+    </div>
+
+    <!-- AMCNETV5 -->
+    <div class="card reveal" data-cat="ml" style="--card-color:var(--teal)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon ml">◈</div>
+          <span class="card-badge b-ml">ml / ai</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/AMC-Automatic-Modulation-Classification-" target="_blank" class="card-link">github ↗</a>
+        </div>
+      </div>
+      <div class="card-name">AMCNetV5</div>
+      <div class="card-desc">Physics-informed 1D CNN for radio modulation classification from raw IQ data using CBAM attention.</div>
+      <div class="card-nums">
+        <div class="card-num"><b>93.06%</b><small>high-SNR accuracy</small></div>
+        <div class="card-num"><b>1.26M</b><small>parameters</small></div>
+        <div class="card-num"><b>11</b><small>modulation types</small></div>
+      </div>
+      <div class="card-tags">
+        <span class="t">PyTorch</span><span class="t">CBAM</span><span class="t">1D CNN</span><span class="t">RadioML</span>
+      </div>
+    </div>
+
+    <!-- RAG-DOC-QA -->
+    <div class="card reveal" data-cat="ml" style="--card-color:var(--teal)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon ml">◈</div>
+          <span class="card-badge b-ml">ml / ai</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/rag-doc-qa" target="_blank" class="card-link">github ↗</a>
+        </div>
+      </div>
+      <div class="card-name">rag-doc-qa</div>
+      <div class="card-desc">Fully offline PDF Q&A app using Retrieval-Augmented Generation and Ollama with evaluation tooling.</div>
+      <div class="card-tags">
+        <span class="t">LangChain</span><span class="t">Chroma</span><span class="t">Ollama</span>
+        <span class="t">FastAPI</span><span class="t">Docker</span>
+      </div>
+    </div>
+
+    <!-- REAL-TIME IDS -->
+    <div class="card reveal" data-cat="res" style="--card-color:var(--rose)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon res">◎</div>
+          <span class="card-badge b-res">research</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/harshithhraya/real-time-intrusion-detection-system" target="_blank" class="card-link">github ↗</a>
+        </div>
+      </div>
+      <div class="card-name">Real-Time IDS</div>
+      <div class="card-desc">Real-time network intrusion detection using BiLSTM models and live packet capture.</div>
+      <div class="card-nums">
+        <div class="card-num"><b>99.16%</b><small>accuracy</small></div>
+        <div class="card-num"><b>0.83%</b><small>false positive rate</small></div>
+      </div>
+      <div class="card-tags">
+        <span class="t">TensorFlow</span><span class="t">BiLSTM</span><span class="t">tshark</span><span class="t">NSL-KDD</span>
+      </div>
+    </div>
+
+    <!-- JOT -->
+    <div class="card reveal" data-cat="dt" style="--card-color:var(--emerald)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon dt">◧</div>
+          <span class="card-badge b-dt">dev tools</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/jot" target="_blank" class="card-link">github ↗</a>
+          <a href="https://pypi.org/project/jot-history/" target="_blank" class="card-link">pypi ↗</a>
+        </div>
+      </div>
+      <div class="card-name">jot</div>
+      <div class="card-desc">Terminal clipboard history manager for text and images, published on PyPI.</div>
+      <div class="card-tags">
+        <span class="t">Python</span><span class="t">SQLite</span><span class="t">PyPI</span>
+        <span class="t">click</span><span class="t">rich</span>
+      </div>
+    </div>
+
+    <!-- WAITPAL -->
+    <div class="card reveal" data-cat="dt" style="--card-color:var(--emerald)">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-icon dt">◧</div>
+          <span class="card-badge b-dt">dev tools</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/dhruv-0512/waitpal" target="_blank" class="card-link">github ↗</a>
+          <a href="https://pypi.org/project/waitpal/" target="_blank" class="card-link">pypi ↗</a>
+        </div>
+      </div>
+      <div class="card-name">waitpal</div>
+      <div class="card-desc">Passive terminal companion for PowerShell with witty one-liners and original text.</div>
+      <div class="card-tags">
+        <span class="t">Python</span><span class="t">PowerShell</span><span class="t">PyPI</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top: 48px; text-align: center;">
+    <a href="index.html#work" class="btn btn-line" style="padding: 12px 28px;">← Return to Main Portfolio</a>
+  </div>
+</div>
+
+<footer>
+  <p>dhruv h · 2026</p>
+  <p class="fa" style="font-family:var(--mono);font-size:10.5px;color:var(--text-faint)">last updated · july 2026</p>
+</footer>
+
+<script>
+  // nav scroll
+  const nav = document.getElementById('nav');
+  function updateScrollEffects() {
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 30);
+  }
+  addEventListener('scroll', updateScrollEffects, { passive: true });
+
+  // mobile
+  const hb = document.getElementById('hb');
+  const nl = document.getElementById('navLinks');
+  hb.onclick = () => { hb.classList.toggle('open'); nl.classList.toggle('open'); };
+  function mClose() { hb.classList.remove('open'); nl.classList.remove('open'); }
+
+  // filters
+  (function() {
+    var btns = document.querySelectorAll('.f-btn');
+    var cards = document.querySelectorAll('.card[data-cat]');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('click', function() {
+        var activeBtns = document.querySelectorAll('.f-btn');
+        for (var j = 0; j < activeBtns.length; j++) {
+          activeBtns[j].classList.remove('active');
+        }
+        this.classList.add('active');
+        var filter = this.getAttribute('data-f');
+        for (var k = 0; k < cards.length; k++) {
+          if (filter === 'all' || cards[k].getAttribute('data-cat') === filter) {
+            cards[k].style.removeProperty('display');
+          } else {
+            cards[k].style.display = 'none';
+          }
+        }
+      });
+    }
+  })();
+
+  // reveal
+  (function() {
+    const revealEls = document.querySelectorAll('.reveal, .card');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('vis'), (i % 6) * 50);
+          if (e.target.classList.contains('card')) {
+            e.target.classList.add('in-view');
+          }
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.06 });
+
+    revealEls.forEach(el => obs.observe(el));
+    setTimeout(() => {
+      revealEls.forEach(el => {
+        if (!el.classList.contains('vis')) el.classList.add('vis');
+      });
+    }, 2500);
+  })();
+</script>
+
+<script>
+(function() {
+  const canvas = document.getElementById('aurora-canvas');
+  if (!canvas) return;
+
+  const gl = canvas.getContext('webgl2', { alpha: true, antialias: true, premultipliedAlpha: false });
+  if (!gl) return;
+
+  const VERT = `#version 300 es
+in vec2 position;
+void main() {
+  gl_Position = vec4(position, 0.0, 1.0);
+}`;
+
+  const FRAG = `#version 300 es
+precision highp float;
+uniform float uTime;
+uniform float uAmplitude;
+uniform vec3 uColorStops[3];
+uniform vec2 uResolution;
+uniform float uBlend;
+out vec4 fragColor;
+
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x,289.0); }
+
+float snoise(vec2 v) {
+  const vec4 C = vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);
+  vec2 i = floor(v + dot(v, C.yy));
+  vec2 x0 = v - i + dot(i, C.xx);
+  vec2 i1 = (x0.x > x0.y) ? vec2(1.0,0.0) : vec2(0.0,1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod(i, 289.0);
+  vec3 p = permute(permute(i.y + vec3(0.0,i1.y,1.0)) + i.x + vec3(0.0,i1.x,1.0));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+  m = m*m; m = m*m;
+  vec3 x = 2.0*fract(p*C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec3 a0 = x - floor(x+0.5);
+  m *= 1.79284291400159 - 0.85373472095314*(a0*a0+h*h);
+  vec3 g;
+  g.x  = a0.x *x0.x  + h.x *x0.y;
+  g.yz = a0.yz*x12.xz + h.yz*x12.yw;
+  return 130.0*dot(m,g);
+}
+
+void main() {
+  vec2 uv = gl_FragCoord.xy / uResolution;
+
+  vec3 c0 = uColorStops[0], c1 = uColorStops[1], c2 = uColorStops[2];
+  vec3 rampColor = uv.x < 0.5
+    ? mix(c0, c1, uv.x * 2.0)
+    : mix(c1, c2, (uv.x - 0.5) * 2.0);
+
+  float height = snoise(vec2(uv.x*2.0 + uTime*0.1, uTime*0.25)) * 0.5 * uAmplitude;
+  height = exp(height);
+  height = uv.y*2.0 - height + 0.2;
+  float intensity = 0.6 * height;
+
+  float auroraAlpha = smoothstep(0.20 - uBlend*0.5, 0.20 + uBlend*0.5, intensity);
+  vec3 auroraColor = intensity * rampColor;
+  fragColor = vec4(auroraColor * auroraAlpha, auroraAlpha);
+}`;
+
+  function compile(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+
+  const vs = compile(gl.VERTEX_SHADER, VERT);
+  const fs = compile(gl.FRAGMENT_SHADER, FRAG);
+  if (!vs || !fs) return;
+
+  const prog = gl.createProgram();
+  gl.attachShader(prog, vs);
+  gl.attachShader(prog, fs);
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+
+  const verts = new Float32Array([-1,-1, 3,-1, -1,3]);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, verts, gl.STATIC_DRAW);
+  const posLoc = gl.getAttribLocation(prog, 'position');
+  gl.enableVertexAttribArray(posLoc);
+  gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+  const uTime      = gl.getUniformLocation(prog, 'uTime');
+  const uAmplitude = gl.getUniformLocation(prog, 'uAmplitude');
+  const uResolution= gl.getUniformLocation(prog, 'uResolution');
+  const uBlend     = gl.getUniformLocation(prog, 'uBlend');
+  const uColorStops= gl.getUniformLocation(prog, 'uColorStops');
+
+  function hexToRgb(hex) {
+    const r = parseInt(hex.slice(1,3),16)/255;
+    const g = parseInt(hex.slice(3,5),16)/255;
+    const b = parseInt(hex.slice(5,7),16)/255;
+    return [r,g,b];
+  }
+
+  const colors = ['#A8C7A0','#6B938A','#7E9BCF'].flatMap(hexToRgb);
+  gl.uniform3fv(uColorStops, colors);
+  gl.uniform1f(uAmplitude, 1.0);
+  gl.uniform1f(uBlend, 0.5);
+
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+  function resize() {
+    const w = window.innerWidth, h = window.innerHeight;
+    canvas.width  = w;
+    canvas.height = h;
+    gl.viewport(0, 0, w, h);
+    gl.uniform2f(uResolution, w, h);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function frame(t) {
+    requestAnimationFrame(frame);
+    gl.clearColor(0,0,0,0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.uniform1f(uTime, t * 0.001 * 0.5 * 0.1);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

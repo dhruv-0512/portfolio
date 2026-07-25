@@ -438,6 +438,46 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   .card.wide { grid-column: span 2; }
   .card.hidden { display: none !important; }
 
+  .card-bullet-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 4px 0 6px;
+  }
+  .card-bullet-list li {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.55;
+    position: relative;
+    padding-left: 14px;
+    list-style: none;
+  }
+  .card-bullet-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+  }
+
+  .other-projects-title {
+    grid-column: 1 / -1;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin: 32px 0 12px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .other-projects-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-strong);
+  }
+
   .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
   .card-icon {
     width: 38px; height: 38px; border-radius: 10px; display: flex;
@@ -754,17 +794,9 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   <div class="eyebrow">work</div>
   <h2 class="heading">Things I've <span>worked on</span></h2>
 
-  <div class="filters">
-    <button class="f-btn active" data-f="all">all</button>
-    <button class="f-btn" data-f="sys">systems</button>
-    <button class="f-btn" data-f="ml">ml / ai</button>
-    <button class="f-btn" data-f="res">research</button>
-    <button class="f-btn" data-f="dt">dev tools</button>
-  </div>
-
   <div class="grid" id="grid">
 
-    <!--  SYSTEMS  -->
+    <!-- FEATURED PROJECT 1: DVARA -->
     <div class="card wide reveal" data-cat="sys" style="--card-color:var(--accent)">
       <div class="card-head">
         <div class="card-head-left">
@@ -778,20 +810,25 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
         </div>
       </div>
       <div class="card-name">dvara</div>
-      <div class="card-desc">PyPI malicious URL detection CLI with a two-stage Bloom Filter pipeline and 268k indexed URLs.</div>
+      <div class="card-desc">Malicious URL detection via Bloom Filter — Published PyPI package using probabilistic data structures for high-performance security threat indexing.</div>
+      <ul class="card-bullet-list">
+        <li>Indexed 268K+ threat URLs (URLhaus, PhishTank, OpenPhish, CERT Polska) into a 5.14MB Bloom Filter sized for 3M URLs at 0.1% target FPR (1/100th memory of a hash set).</li>
+        <li>Designed two-stage lookup pipeline (~0.003ms Bloom check, 145K URLs/sec throughput, PostgreSQL confirmation only on hits) validated to 0 false negatives & 0 false positives across 100K test URLs.</li>
+        <li>Self-hosted full stack (FastAPI, PostgreSQL, Redis) on AWS EC2 via Docker Compose.</li>
+      </ul>
       <div class="card-nums">
-        <div class="card-num"><b>268,970</b><small>URLs indexed</small></div>
+        <div class="card-num"><b>268,970+</b><small>URLs indexed</small></div>
         <div class="card-num"><b>145k/s</b><small>throughput</small></div>
         <div class="card-num"><b>5.14 MB</b><small>filter size</small></div>
-        <div class="card-num"><b>0</b><small>false pos / 100k</small></div>
+        <div class="card-num"><b>0 FN / FP</b><small>100k test URLs</small></div>
       </div>
       <div class="card-tags">
         <span class="t">Python</span><span class="t">FastAPI</span><span class="t">Bloom Filter</span>
-        <span class="t">PostgreSQL</span><span class="t">Redis</span><span class="t">PyPI</span>
+        <span class="t">PostgreSQL</span><span class="t">Redis</span><span class="t">Docker Compose</span><span class="t">AWS EC2</span><span class="t">PyPI</span>
       </div>
     </div>
 
-    <!--  QUERYMIND  -->
+    <!-- FEATURED PROJECT 2: QUERYMIND -->
     <div class="card wide reveal" data-cat="sys" style="--card-color:var(--violet)">
       <div class="card-head">
         <div class="card-head-left">
@@ -803,44 +840,25 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
         </div>
       </div>
       <div class="card-name">QueryMind</div>
-      <div class="card-desc">Natural language to SQL platform that turns CSV, XLSX, and JSON data into instant queries and charts.</div>
+      <div class="card-desc">Natural language to SQL platform enabling instant English-to-SQL analytics over CSV, Excel, and JSON datasets.</div>
+      <ul class="card-bullet-list">
+        <li>Built two-stage RAG pipeline retrieving DDL embeddings & SQL examples from a curated Spider/WikiSQL pool in ChromaDB, with Gemini 2.5 Flash generating validated SQL executed against isolated per-user PostgreSQL schemas.</li>
+        <li>Designed event-driven architecture with Kafka (KRaft) across 4 topics & Audit Consumer persisting events to PostgreSQL, with Redis sliding window rate limiting and interactive Recharts visualizations.</li>
+      </ul>
       <div class="card-nums">
-        <div class="card-num"><b>~2,000</b><small>RAG SQL examples</small></div>
-        <div class="card-num"><b>78%</b><small>RAG-direct threshold</small></div>
-        <div class="card-num"><b>1,000</b><small>row result cap</small></div>
-        <div class="card-num"><b>7</b><small>services orchestrated</small></div>
+        <div class="card-num"><b>Spider / WikiSQL</b><small>RAG vector pool</small></div>
+        <div class="card-num"><b>4 Topics</b><small>Kafka KRaft event pipeline</small></div>
+        <div class="card-num"><b>Isolated</b><small>per-user Postgres schemas</small></div>
+        <div class="card-num"><b>Gemini 2.5</b><small>validated SQL gen</small></div>
       </div>
       <div class="card-tags">
-        <span class="t">FastAPI</span><span class="t">React 19</span><span class="t">Gemini 2.5 Flash</span>
-        <span class="t">PostgreSQL</span><span class="t">Redis</span><span class="t">Kafka</span>
-        <span class="t">ChromaDB</span><span class="t">Docker Compose</span><span class="t">asyncpg</span>
+        <span class="t">FastAPI</span><span class="t">PostgreSQL</span><span class="t">Redis</span><span class="t">Kafka (KRaft)</span>
+        <span class="t">ChromaDB</span><span class="t">Gemini 2.5</span><span class="t">React</span><span class="t">asyncpg</span>
       </div>
     </div>
 
-    <div class="card reveal" data-cat="sys" style="--card-color:var(--accent)">
-      <div class="card-head">
-        <div class="card-head-left">
-          <div class="card-icon sys">⚙</div>
-          <span class="card-badge b-sys">systems</span>
-        </div>
-        <div class="card-links">
-          <a href="https://github.com/dhruv-0512/fluxgate" target="_blank" class="card-link">github ↗</a>
-        </div>
-      </div>
-      <div class="card-name">FluxGate</div>
-      <div class="card-desc">Distributed rate limiter with Redis Lua enforcement, hot config reload, and live dashboarding.</div>
-      <div class="card-nums">
-        <div class="card-num"><b>4K+ RPS</b><small>load tested</small></div>
-        <div class="card-num"><b>~12ms</b><small>p50 latency</small></div>
-        <div class="card-num"><b>4</b><small>algorithms</small></div>
-      </div>
-      <div class="card-tags">
-        <span class="t">FastAPI</span><span class="t">Redis Lua</span><span class="t">PostgreSQL</span>
-        <span class="t">React</span><span class="t">WebSocket</span>
-      </div>
-    </div>
-
-    <div class="card reveal" data-cat="res" style="--card-color:var(--rose)">
+    <!-- FEATURED PROJECT 3: EXOPLANET ATMOSPHERIC RETRIEVAL -->
+    <div class="card wide reveal" data-cat="res" style="--card-color:var(--rose)">
       <div class="card-head">
         <div class="card-head-left">
           <div class="card-icon res">◎</div>
@@ -851,163 +869,59 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
         </div>
       </div>
       <div class="card-name">Exoplanet Atmospheric Retrieval</div>
-      <div class="card-desc">ML-based exoplanet atmospheric retrieval project benchmarked on Ariel and JWST data.</div>
+      <div class="card-desc">ML-based Exoplanet Atmospheric Retrieval — Research manuscript under review @ Scientific Reports.</div>
+      <ul class="card-bullet-list">
+        <li>Owned model training & pipeline design on team research project benchmarking MLP, SVR, and XGBoost on Ariel Big Data Challenge dataset to retrieve 5 gas abundances & equilibrium temperature from transmission spectra.</li>
+        <li>XGBoost generalised best to real JWST NIRSpec observations of WASP-39b (matching published retrieval results); validated generalisation across all 5 atmospheric gases on out-of-distribution real JWST observational data.</li>
+      </ul>
       <div class="card-nums">
-        <div class="card-num"><b>5</b><small>target gases</small></div>
-        <div class="card-num"><b>JWST</b><small>validated against</small></div>
+        <div class="card-num"><b>5 Gases + Temp</b><small>atmospheric retrieval</small></div>
+        <div class="card-num"><b>JWST WASP-39b</b><small>real data validated</small></div>
+        <div class="card-num"><b>Scientific Reports</b><small>under review</small></div>
+        <div class="card-num"><b>52-Bin</b><small>interpolation pipeline</small></div>
       </div>
       <div class="card-tags">
-        <span class="t">XGBoost</span><span class="t">scikit-learn</span><span class="t">Optuna</span>
-        <span class="t">JWST data</span>
+        <span class="t">Python</span><span class="t">XGBoost</span><span class="t">scikit-learn</span><span class="t">Optuna</span>
+        <span class="t">JWST Data</span><span class="t">Ariel Challenge</span>
       </div>
     </div>
 
-    <div class="card reveal" data-cat="sys" style="--card-color:var(--teal)">
+    <!-- FEATURED PROJECT 4: FLUXGATE -->
+    <div class="card wide reveal" data-cat="sys" style="--card-color:var(--accent)">
       <div class="card-head">
         <div class="card-head-left">
           <div class="card-icon sys">⚙</div>
           <span class="card-badge b-sys">systems</span>
         </div>
         <div class="card-links">
-          <a href="https://github.com/dhruv-0512/lostping" target="_blank" class="card-link">github ↗</a>
+          <a href="https://github.com/dhruv-0512/fluxgate" target="_blank" class="card-link">github ↗</a>
         </div>
       </div>
-      <div class="card-name">lostping</div>
-      <div class="card-desc">AIS vessel anomaly detection that flags suspicious ship behavior and generates scored reports.</div>
+      <div class="card-name">FluxGate</div>
+      <div class="card-desc">Distributed rate limiter infrastructure with Redis Lua enforcement, hot config reload, and live WebSocket monitoring dashboard.</div>
+      <ul class="card-bullet-list">
+        <li>High-throughput rate limiting engine supporting 4 algorithms (sliding window log, token bucket, leaky bucket, fixed window) with atomic Redis Lua script execution.</li>
+        <li>Hot configuration reloading without service downtime, real-time WebSocket metric streaming, and PostgreSQL persistent audit logging.</li>
+      </ul>
       <div class="card-nums">
-        <div class="card-num"><b>7.3M</b><small>pings processed</small></div>
-        <div class="card-num"><b>4,621</b><small>vessels scored</small></div>
-        <div class="card-num"><b>~3 min</b><small>full pipeline</small></div>
+        <div class="card-num"><b>4K+ RPS</b><small>load tested throughput</small></div>
+        <div class="card-num"><b>~12ms</b><small>p50 latency</small></div>
+        <div class="card-num"><b>4</b><small>rate limit algorithms</small></div>
       </div>
       <div class="card-tags">
-        <span class="t">Python</span><span class="t">Isolation Forest</span><span class="t">DBSCAN</span>
-        <span class="t">Folium</span><span class="t">Geospatial</span>
-      </div>
-    </div>
-
-    <!--  ML / AI  -->
-    <div class="card reveal" data-cat="ml" style="--card-color:var(--teal)">
-      <div class="card-head">
-        <div class="card-head-left">
-          <div class="card-icon ml">◈</div>
-          <span class="card-badge b-ml">ml / ai</span>
-        </div>
-        <div class="card-links">
-          <a href="https://github.com/dhruv-0512/AMC-Automatic-Modulation-Classification-" target="_blank" class="card-link">github ↗</a>
-        </div>
-      </div>
-      <div class="card-name">AMCNetV5</div>
-      <div class="card-desc">Physics-informed 1D CNN for radio modulation classification from raw IQ data.</div>
-      <div class="card-nums">
-        <div class="card-num"><b>93.06%</b><small>high-SNR accuracy</small></div>
-        <div class="card-num"><b>1.26M</b><small>parameters</small></div>
-        <div class="card-num"><b>11</b><small>modulation types</small></div>
-      </div>
-      <div class="card-tags">
-        <span class="t">PyTorch</span><span class="t">CBAM</span><span class="t">1D CNN</span><span class="t">RadioML</span>
-      </div>
-    </div>
-
-    <div class="card reveal" data-cat="ml" style="--card-color:var(--teal)">
-      <div class="card-head">
-        <div class="card-head-left">
-          <div class="card-icon ml">◈</div>
-          <span class="card-badge b-ml">ml / ai</span>
-        </div>
-        <div class="card-links">
-          <a href="https://github.com/dhruv-0512/SybilGAT" target="_blank" class="card-link">github ↗</a>
-        </div>
-      </div>
-      <div class="card-name">SybilGAT</div>
-      <div class="card-desc">Graph Attention Network for bot detection with statistically validated attention behavior.</div>
-      <div class="card-nums">
-        <div class="card-num"><b>97.12%</b><small>accuracy</small></div>
-        <div class="card-num"><b>p &lt; 10<sup>-5</sup></b><small>significance</small></div>
-        <div class="card-num"><b>14,368</b><small>users analyzed</small></div>
-      </div>
-      <div class="card-tags">
-        <span class="t">PyTorch Geometric</span><span class="t">GAT</span><span class="t">GNNExplainer</span>
-      </div>
-    </div>
-
-    <div class="card reveal" data-cat="ml" style="--card-color:var(--teal)">
-      <div class="card-head">
-        <div class="card-head-left">
-          <div class="card-icon ml">◈</div>
-          <span class="card-badge b-ml">ml / ai</span>
-        </div>
-        <div class="card-links">
-          <a href="https://github.com/dhruv-0512/rag-doc-qa" target="_blank" class="card-link">github ↗</a>
-        </div>
-      </div>
-      <div class="card-name">rag-doc-qa</div>
-      <div class="card-desc">Fully offline PDF Q&A app using RAG and Ollama with evaluation tooling built in.</div>
-      <div class="card-tags">
-        <span class="t">LangChain</span><span class="t">Chroma</span><span class="t">Ollama</span>
-        <span class="t">FastAPI</span><span class="t">Docker</span>
-      </div>
-    </div>
-
-    <div class="card reveal" data-cat="res" style="--card-color:var(--rose)">
-      <div class="card-head">
-        <div class="card-head-left">
-          <div class="card-icon res">◎</div>
-          <span class="card-badge b-res">research</span>
-        </div>
-        <div class="card-links">
-          <a href="https://github.com/harshithhraya/real-time-intrusion-detection-system" target="_blank" class="card-link">github ↗</a>
-        </div>
-      </div>
-      <div class="card-name">Real-Time IDS</div>
-      <div class="card-desc">Real-time intrusion detection using BiLSTM models and live packet capture.</div>
-      <div class="card-nums">
-        <div class="card-num"><b>99.16%</b><small>accuracy</small></div>
-        <div class="card-num"><b>0.83%</b><small>false positive rate</small></div>
-      </div>
-      <div class="card-tags">
-        <span class="t">TensorFlow</span><span class="t">BiLSTM</span><span class="t">tshark</span><span class="t">NSL-KDD</span>
-      </div>
-    </div>
-
-    <!--  DEV TOOLS  -->
-    <div class="card reveal" data-cat="dt" style="--card-color:var(--emerald)">
-      <div class="card-head">
-        <div class="card-head-left">
-          <div class="card-icon dt">◧</div>
-          <span class="card-badge b-dt">dev tools</span>
-        </div>
-        <div class="card-links">
-          <a href="https://github.com/dhruv-0512/jot" target="_blank" class="card-link">github ↗</a>
-          <a href="https://pypi.org/project/jot-history/" target="_blank" class="card-link">pypi ↗</a>
-        </div>
-      </div>
-      <div class="card-name">jot</div>
-      <div class="card-desc">Terminal clipboard history manager for text and images, published on PyPI.</div>
-      <div class="card-tags">
-        <span class="t">Python</span><span class="t">SQLite</span><span class="t">PyPI</span>
-        <span class="t">click</span><span class="t">rich</span>
-      </div>
-    </div>
-
-    <div class="card reveal" data-cat="dt" style="--card-color:var(--emerald)">
-      <div class="card-head">
-        <div class="card-head-left">
-          <div class="card-icon dt">◧</div>
-          <span class="card-badge b-dt">dev tools</span>
-        </div>
-        <div class="card-links">
-          <a href="https://github.com/dhruv-0512/waitpal" target="_blank" class="card-link">github ↗</a>
-          <a href="https://pypi.org/project/waitpal/" target="_blank" class="card-link">pypi ↗</a>
-        </div>
-      </div>
-      <div class="card-name">waitpal</div>
-      <div class="card-desc">Passive terminal companion for PowerShell with witty one-liners and original text.</div>
-      <div class="card-tags">
-        <span class="t">Python</span><span class="t">PowerShell</span><span class="t">PyPI</span>
+        <span class="t">FastAPI</span><span class="t">Redis Lua</span><span class="t">PostgreSQL</span>
+        <span class="t">React</span><span class="t">WebSockets</span>
       </div>
     </div>
 
   </div>
+
+  <div style="margin-top: 36px; text-align: center; display: flex; justify-content: center;">
+    <a href="projects.html" class="btn btn-fill" style="padding: 12px 32px; font-size: 13.5px; font-weight: 600; border-radius: 30px;">
+      More Projects →
+    </a>
+  </div>
+</section>
 
   <!-- CURRENTLY -->
   <div class="currently">
@@ -1379,6 +1293,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   (function() {
     var btns = document.querySelectorAll('.f-btn');
     var cards = document.querySelectorAll('.card[data-cat]');
+    var othHeader = document.getElementById('otherProjectsHeader');
     for (var i = 0; i < btns.length; i++) {
       btns[i].addEventListener('click', function() {
         var activeBtns = document.querySelectorAll('.f-btn');
@@ -1387,6 +1302,13 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
         }
         this.classList.add('active');
         var filter = this.getAttribute('data-f');
+        if (othHeader) {
+          if (filter === 'all') {
+            othHeader.style.removeProperty('display');
+          } else {
+            othHeader.style.display = 'none';
+          }
+        }
         for (var k = 0; k < cards.length; k++) {
           if (filter === 'all' || cards[k].getAttribute('data-cat') === filter) {
             cards[k].style.removeProperty('display');
