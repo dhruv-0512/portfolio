@@ -65,7 +65,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
     width: 100vw;
     height: 100vh;
     z-index: 0;
-    opacity: 0.18;
+    opacity: 0.08;
     pointer-events: none;
   }
 
@@ -160,11 +160,21 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
     mask-image: radial-gradient(ellipse 70% 60% at 52% 40%, rgba(0,0,0,0.6) 0%, transparent 75%);
     pointer-events: none;
   }
-  .hero-glow {
-    position: absolute; top: 8%; right: 4%;
-    width: 560px; height: 560px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(101,146,135,0.06) 0%, transparent 68%);
+  .hero-glow-left {
+    position: absolute; top: -10%; left: -5%;
+    width: 650px; height: 650px; border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(168, 199, 160, 0.11) 0%, rgba(168, 199, 160, 0.04) 45%, transparent 70%);
+    filter: blur(80px);
     pointer-events: none;
+    z-index: 0;
+  }
+  .hero-glow-right {
+    position: absolute; top: 2%; right: 2%;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(126, 155, 207, 0.10) 0%, rgba(126, 155, 207, 0.03) 50%, transparent 70%);
+    filter: blur(95px);
+    pointer-events: none;
+    z-index: 0;
   }
 
   .hero-inner {
@@ -244,34 +254,34 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   /* ”” Hero terminal widget ”” */
   .hero-terminal {
     position: relative;
-    background: rgba(8, 12, 28, 0.72);
-    backdrop-filter: blur(20px) saturate(1.5);
-    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    background: rgba(12, 18, 30, 0.82);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
     border-radius: 18px;
     padding: 0; overflow: hidden;
     box-shadow:
-      0 0 0 1px rgba(124,255,103,0.15),
-      0 0 50px rgba(82,39,255,0.2),
-      0 24px 70px rgba(0,0,0,0.4),
-      inset 0 1px 0 rgba(255,255,255,0.06);
+      0 0 0 1px rgba(168, 199, 160, 0.15),
+      0 0 45px rgba(126, 155, 207, 0.10),
+      0 24px 70px rgba(16, 24, 40, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
     font-family: var(--mono); font-size: 13px;
-    border: 1px solid rgba(180,151,207,0.25);
+    border: 1px solid rgba(126, 155, 207, 0.20);
     transform: perspective(1000px) rotateY(-2deg) translate3d(0, var(--hero-shift, 0px), 0);
     transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
   }
   .hero-terminal.in-view {
     box-shadow:
-      0 0 0 1px rgba(124,255,103,0.22),
-      0 0 70px rgba(82,39,255,0.25),
-      0 28px 80px rgba(0,0,0,0.45),
-      inset 0 1px 0 rgba(255,255,255,0.08);
+      0 0 0 1px rgba(168, 199, 160, 0.20),
+      0 0 60px rgba(126, 155, 207, 0.14),
+      0 28px 80px rgba(16, 24, 40, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
   .hero-terminal::after {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: 18px;
-    background: linear-gradient(135deg, rgba(124,255,103,0.03) 0%, rgba(82,39,255,0.05) 100%);
+    background: linear-gradient(135deg, rgba(168, 199, 160, 0.03) 0%, rgba(126, 155, 207, 0.04) 100%);
     pointer-events: none;
     z-index: 3;
   }
@@ -695,7 +705,8 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg-pattern"></div>
-  <div class="hero-glow"></div>
+  <div class="hero-glow-left"></div>
+  <div class="hero-glow-right"></div>
   <div class="hero-inner">
     <div>
       <h1>Dhruv</h1>
@@ -1537,7 +1548,7 @@ void main() {
     return [r,g,b];
   }
 
-  const colors = ['#7cff67','#B497CF','#5227FF'].flatMap(hexToRgb);
+  const colors = ['#A8C7A0','#6B938A','#7E9BCF'].flatMap(hexToRgb);
   gl.uniform3fv(uColorStops, colors);
   gl.uniform1f(uAmplitude, 1.0);
   gl.uniform1f(uBlend, 0.5);
