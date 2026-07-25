@@ -13,55 +13,70 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
 <link rel="shortcut icon" href="./favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #fdf8ee;
-    --bg-warm: #faf0d7;
-    --bg-card: #ffffff;
-    --bg-card-hover: #fffdf7;
-    --bg-deep: #f5e3b4;
-    --border: rgba(217,119,6,0.12);
-    --border-strong: rgba(217,119,6,0.22);
-    --text: #0f1117;
-    --text-mid: #2d3748;
-    --text-soft: #4a5568;
-    --text-faint: #718096;
-    --accent: #d97706;
-    --accent-hover: #b45309;
-    --accent-soft: rgba(217,119,6,0.09);
-    --teal: #0891b2;
-    --teal-soft: rgba(8,145,178,0.10);
-    --violet: #7c3aed;
-    --violet-soft: rgba(124,58,237,0.09);
-    --rose: #e11d48;
-    --rose-soft: rgba(225,29,72,0.08);
-    --emerald: #059669;
-    --emerald-soft: rgba(5,150,105,0.09);
-    --slate: #475569;
-    --slate-soft: rgba(71,85,105,0.07);
+    --bg: #f7f6f2;
+    --bg-warm: #e8f1f5;
+    --bg-card: rgba(255,255,255,0.95);
+    --bg-card-hover: #ffffff;
+    --bg-deep: #dce7ec;
+    --border: rgba(101,146,135,0.16);
+    --border-strong: rgba(101,146,135,0.24);
+    --text: #16324f;
+    --text-mid: #2f4b63;
+    --text-soft: #4f677b;
+    --text-faint: #6b7d8a;
+    --accent: #659287;
+    --accent-hover: #4e7a6f;
+    --accent-soft: rgba(101,146,135,0.14);
+    --teal: #88bda4;
+    --teal-soft: rgba(136,189,164,0.14);
+    --violet: #b1d3b9;
+    --violet-soft: rgba(177,211,185,0.18);
+    --rose: #e6f2dd;
+    --rose-soft: rgba(230,242,221,0.24);
+    --emerald: #4f7d6c;
+    --emerald-soft: rgba(79,125,108,0.12);
+    --slate: #5f7c8a;
+    --slate-soft: rgba(95,124,138,0.1);
     --mono: 'JetBrains Mono', monospace;
-    --sans: 'Outfit', -apple-system, sans-serif;
-    --r: 8px;
-    --r-sm: 5px;
+    --sans: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --r: 14px;
+    --r-sm: 8px;
   }
 
   body {
-    background: var(--bg);
-    background-image:
-      radial-gradient(ellipse 80% 60% at 10% 0%, rgba(251,191,36,0.14) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 50% at 90% 100%, rgba(217,119,6,0.09) 0%, transparent 55%);
+    background:
+      linear-gradient(180deg, #f8f7f3 0%, #f3f6f5 100%);
     color: var(--text);
     font-family: var(--sans);
     font-size: 15px;
-    line-height: 1.6;
+    line-height: 1.65;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    position: relative;
   }
 
-  ::selection { background: rgba(217,119,6,0.18); }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(rgba(0,0,0,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.018) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: linear-gradient(180deg, rgba(0,0,0,0.18), transparent 88%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  ::selection { background: rgba(101,146,135,0.22); color: #16324f; }
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 3px; }
@@ -74,8 +89,8 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
     transition: all 0.35s;
   }
   nav.scrolled {
-    background: rgba(248,249,252,0.92);
-    backdrop-filter: blur(20px) saturate(1.4);
+    background: rgba(248,249,252,0.86);
+    backdrop-filter: blur(16px) saturate(1.15);
     box-shadow: 0 1px 0 var(--border);
   }
   .nav-brand {
@@ -97,9 +112,9 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   .nav-links a:hover::after { width: 100%; }
   .nav-cta {
     font-family: var(--mono); font-size: 11.5px; font-weight: 600;
-    color: #fff; background: var(--accent); padding: 8px 20px;
+    color: #ffffff; background: var(--accent); padding: 8px 20px;
     border-radius: var(--r-sm); text-decoration: none; line-height: 1;
-    transition: all 0.2s; box-shadow: 0 2px 8px rgba(196,109,29,0.15);
+    transition: all 0.2s; box-shadow: 0 2px 8px rgba(90,74,54,0.14);
   }
   .nav-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
   .nav-links .nav-cta { padding: 8px 20px; align-self: center; }
@@ -122,38 +137,39 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   /* ══════════ HERO ══════════ */
   .hero {
     min-height: 100vh; display: flex; align-items: center;
-    padding: 100px 48px 80px; position: relative; overflow: hidden;
+    padding: 112px 48px 86px; position: relative; overflow: hidden;
   }
   .hero-bg-pattern {
     position: absolute; inset: 0;
-    background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.04) 1px, transparent 0);
-    background-size: 32px 32px;
-    mask-image: radial-gradient(ellipse 65% 55% at 55% 45%, rgba(0,0,0,0.5) 0%, transparent 70%);
+    background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.022) 1px, transparent 0);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse 70% 60% at 52% 40%, rgba(0,0,0,0.6) 0%, transparent 75%);
     pointer-events: none;
   }
   .hero-glow {
-    position: absolute; top: 10%; right: 5%;
+    position: absolute; top: 8%; right: 4%;
     width: 560px; height: 560px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(217,119,6,0.08) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(101,146,135,0.06) 0%, transparent 68%);
     pointer-events: none;
   }
 
   .hero-inner {
     position: relative; z-index: 1;
-    display: grid; grid-template-columns: 1fr 540px; gap: 72px;
-    max-width: 1200px; margin: 0 auto; width: 100%; align-items: center;
+    display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 64px;
+    max-width: 1220px; margin: 0 auto; width: 100%; align-items: center;
   }
 
   .hero-badge {
     display: inline-flex; align-items: center; gap: 8px;
-    font-family: var(--mono); font-size: 11px; font-weight: 500;
-    color: var(--teal); background: var(--teal-soft);
-    border: 1px solid rgba(15,118,110,0.12);
-    padding: 5px 14px; border-radius: 20px; margin-bottom: 24px;
-    letter-spacing: 0.03em;
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    color: var(--teal); background: rgba(15,118,110,0.08);
+    border: 1px solid rgba(15,118,110,0.14);
+    padding: 6px 12px; border-radius: 999px; margin-bottom: 20px;
+    letter-spacing: 0.04em;
+    box-shadow: 0 8px 24px rgba(15,118,110,0.06);
   }
   .hero-badge .dot {
-    width: 5px; height: 5px; border-radius: 50%; background: var(--teal);
+    width: 6px; height: 6px; border-radius: 50%; background: var(--teal);
     animation: blink 2.5s ease-in-out infinite;
   }
   @keyframes blink {
@@ -162,51 +178,84 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   }
 
   .hero h1 {
-    font-size: clamp(64px, 9vw, 108px); font-weight: 800;
-    line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 28px;
+    font-size: clamp(56px, 7.5vw, 96px); font-weight: 800;
+    line-height: 0.9; letter-spacing: -0.04em; margin-bottom: 18px;
   }
 
   .hero-value {
-    font-size: clamp(22px, 3vw, 32px); font-weight: 700;
-    color: var(--text); line-height: 1.2; letter-spacing: -0.02em;
+    font-size: clamp(20px, 2.6vw, 28px); font-weight: 700;
+    color: var(--text); line-height: 1.18; letter-spacing: -0.02em;
     margin-bottom: 10px;
   }
 
   .hero-sub {
-    font-size: 15px; color: var(--text-mid); max-width: 520px;
-    line-height: 1.7; margin-bottom: 32px;
+    font-size: 16px; color: var(--text-mid); max-width: 540px;
+    line-height: 1.7; margin-bottom: 24px;
   }
 
   .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
   .btn {
     font-family: var(--mono); font-size: 12px; font-weight: 600;
-    padding: 11px 24px; border-radius: var(--r-sm); text-decoration: none;
+    padding: 12px 20px; border-radius: 999px; text-decoration: none;
     display: inline-flex; align-items: center; gap: 6px;
     transition: all 0.2s; cursor: pointer; border: none;
   }
   .btn-fill {
-    background: var(--accent); color: #fff;
-    box-shadow: 0 2px 10px rgba(196,109,29,0.2);
+    background: var(--accent); color: #ffffff;
+    box-shadow: 0 8px 20px rgba(90,74,54,0.14);
   }
-  .btn-fill:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(196,109,29,0.3); }
+  .btn-fill:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 12px 24px rgba(90,74,54,0.18); }
   .btn-line {
-    background: transparent; color: var(--text-mid);
+    background: rgba(255,255,255,0.9); color: var(--text);
     border: 1px solid var(--border-strong);
+    backdrop-filter: blur(10px);
   }
-  .btn-line:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); transform: translateY(-2px); }
+  .btn-line:hover { border-color: var(--accent); color: var(--accent); background: rgba(139,106,63,0.10); transform: translateY(-2px); }
+  .btn-resume {
+    background: linear-gradient(135deg, #243b53, #4c6f8e);
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.14);
+    box-shadow: 0 10px 24px rgba(36,59,83,0.22);
+    font-family: var(--mono);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .btn-resume:hover {
+    background: linear-gradient(135deg, #1f3247, #3f6383);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(36,59,83,0.26);
+  }
 
   /* ── Hero terminal widget ── */
   .hero-terminal {
-    background: #1e1b18; border-radius: var(--r);
+    position: relative;
+    background: linear-gradient(180deg, #fbfcfb 0%, #eef2ee 100%);
+    border-radius: 18px;
     padding: 0; overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 2px 8px rgba(0,0,0,0.1);
-    font-family: var(--mono); font-size: 12.5px;
-    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 0 14px 30px rgba(101,146,135,0.08), 0 1px 6px rgba(101,146,135,0.05), inset 0 0 0 1px rgba(255,255,255,0.45);
+    font-family: var(--mono); font-size: 13px;
+    border: 1px solid rgba(0,0,0,0.10);
+    transform: perspective(1000px) rotateY(-2deg) translate3d(0, var(--hero-shift, 0px), 0);
+    transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+  }
+  .hero-terminal.in-view {
+    background: linear-gradient(180deg, #fbfcfb 0%, #eef4ef 100%);
+    border-color: rgba(101,146,135,0.18);
+  }
+  .hero-terminal::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.28);
+    pointer-events: none;
+    z-index: 3;
   }
   .term-bar {
     display: flex; align-items: center; gap: 6px;
-    padding: 10px 14px; background: rgba(255,255,255,0.03);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 10px 14px; background: rgba(255,255,255,0.82);
+    border-bottom: 1px solid rgba(101,146,135,0.08);
   }
   .term-dot { width: 10px; height: 10px; border-radius: 50%; }
   .term-dot.r { background: #ef4444; }
@@ -218,12 +267,12 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   }
   .term-body { padding: 16px 18px; line-height: 1.9; }
   .term-body .prompt { color: var(--accent); }
-  .term-body .cmd { color: #e2ddd6; }
-  .term-body .out { color: #8b8580; }
-  .term-body .g { color: #4ade80; }
-  .term-body .r { color: #f87171; }
-  .term-body .y { color: #fbbf24; }
-  .term-body .c { color: #22d3ee; }
+  .term-body .cmd { color: var(--text-mid); }
+  .term-body .out { color: var(--text-mid); }
+  .term-body .g { color: #4d7d67; }
+  .term-body .r { color: #9b5a62; }
+  .term-body .y { color: #9b7d3f; }
+  .term-body .c { color: #4c6f8e; }
   .term-body .cursor {
     display: inline-block; width: 7px; height: 14px;
     background: var(--accent); margin-left: 2px;
@@ -243,10 +292,10 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   }
   .term-input {
     flex: 1; background: transparent; border: none; outline: none;
-    font-family: var(--mono); font-size: 12.5px; color: #e2ddd6;
+    font-family: var(--mono); font-size: 13.5px; color: var(--text-mid);
     caret-color: var(--accent);
   }
-  .term-input::placeholder { color: rgba(255,255,255,0.15); }
+  .term-input::placeholder { color: rgba(95,101,112,0.45); }
   .term-suggestion {
     position: absolute; bottom: 100%; left: 0; right: 0;
     padding: 4px 18px 0; font-size: 11px; color: rgba(255,255,255,0.2);
@@ -255,19 +304,34 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
 
   /* ══════════ STATS BAR ══════════ */
   .stats-bar {
-    max-width: 1200px; margin: 0 auto;
-    padding: 40px 48px;
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    max-width: 1220px; margin: 0 auto;
+    padding: 28px 48px 24px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+  }
+  .stat-item {
+    background: rgba(255,255,255,0.72);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 16px;
+    box-shadow: 0 8px 18px rgba(17,24,39,0.03);
+    backdrop-filter: blur(10px);
+    transform: translate3d(0, var(--scroll-shift, 0px), 0);
+    transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-item.in-view {
+    background: linear-gradient(180deg, rgba(101,146,135,0.06), rgba(255,255,255,0.82));
+    border-color: rgba(101,146,135,0.18);
   }
   .stat-item .stat-num {
-    font-size: 28px; font-weight: 700; color: var(--accent);
+    font-size: 28px; font-weight: 800; color: var(--accent);
     line-height: 1; letter-spacing: -0.02em;
   }
   .stat-item .stat-label {
-    font-family: var(--mono); font-size: 10.5px;
-    color: var(--text-faint); letter-spacing: 0.05em; margin-top: 4px;
+    font-family: var(--mono); font-size: 10px;
+    color: var(--text-faint); letter-spacing: 0.05em; margin-top: 6px;
+    text-transform: uppercase;
   }
 
   /* ══════════ SECTIONS ══════════ */
@@ -302,32 +366,43 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   }
 
   /* ══════════ PROJECT GRID ══════════ */
-  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 
   .card {
     background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: var(--r); padding: 24px 26px;
+    border-radius: 18px; padding: 22px 24px;
     display: flex; flex-direction: column; gap: 12px;
     position: relative; transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
     overflow: hidden;
-    box-shadow: 0 2px 12px rgba(217,119,6,0.06);
+    box-shadow: 0 10px 30px rgba(17,24,39,0.05);
+    backdrop-filter: blur(10px);
+    transform: translate3d(0, var(--scroll-shift, 0px), 0);
+  }
+  .card::before {
+    content: ''; position: absolute; inset: 0 0 auto 0; height: 3px;
+    background: linear-gradient(90deg, var(--card-color, var(--accent)), transparent);
+    opacity: 0.9;
   }
   .card::after {
-    content: ''; position: absolute; inset: 0; border-radius: var(--r);
+    content: ''; position: absolute; inset: 0; border-radius: 18px;
     box-shadow: inset 0 0 0 1.5px transparent;
     transition: box-shadow 0.3s; pointer-events: none;
   }
   .card:hover {
     background: var(--bg-card-hover); transform: translateY(-3px);
-    box-shadow: 0 12px 36px rgba(217,119,6,0.1);
+    box-shadow: 0 16px 42px rgba(17,24,39,0.09);
   }
   .card:hover::after { box-shadow: inset 0 0 0 1.5px var(--card-color, var(--accent)); }
+  .card.in-view {
+    background: linear-gradient(180deg, rgba(101,146,135,0.04), rgba(255,255,255,0.98));
+    border-color: rgba(101,146,135,0.15);
+  }
   .card.wide { grid-column: span 2; }
   .card.hidden { display: none !important; }
 
   .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
   .card-icon {
-    width: 34px; height: 34px; border-radius: 8px; display: flex;
+    width: 38px; height: 38px; border-radius: 10px; display: flex;
     align-items: center; justify-content: center; font-size: 16px;
     flex-shrink: 0;
   }
@@ -358,7 +433,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   .card-link:hover { color: var(--accent); background: var(--accent-soft); }
 
   .card-name { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; }
-  .card-desc { font-size: 13px; color: var(--text-mid); line-height: 1.7; flex: 1; }
+  .card-desc { font-size: 13.5px; color: var(--text-mid); line-height: 1.7; flex: 1; }
 
   .card-nums { display: flex; gap: 20px; flex-wrap: wrap; }
   .card-num { display: flex; flex-direction: column; gap: 1px; }
@@ -386,6 +461,11 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
     background: var(--bg-card); border: 1px solid var(--border);
     border-radius: var(--r); padding: 20px 22px;
     display: flex; align-items: flex-start; gap: 14px;
+    transform: translate3d(0, var(--scroll-shift, 0px), 0);
+  }
+  .cur-card.in-view {
+    background: linear-gradient(180deg, rgba(101,146,135,0.04), rgba(255,255,255,0.96));
+    border-color: rgba(101,146,135,0.16);
   }
   .cur-emoji { font-size: 22px; line-height: 1; flex-shrink: 0; margin-top: 2px; }
   .cur-text .cur-label {
@@ -425,13 +505,19 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   .exp-list { display: flex; flex-direction: column; gap: 12px; }
   .exp-card {
     background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: var(--r); padding: 22px 26px;
-    display: flex; align-items: center; gap: 20px;
+    border-radius: 18px; padding: 22px 24px;
+    display: flex; align-items: flex-start; gap: 18px;
     transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 8px 24px rgba(17,24,39,0.04);
+    transform: translate3d(0, var(--scroll-shift, 0px), 0);
+  }
+  .exp-card.in-view {
+    background: linear-gradient(180deg, rgba(101,146,135,0.04), rgba(255,255,255,0.96));
+    border-color: rgba(101,146,135,0.16);
   }
   .exp-card:hover {
     background: var(--bg-card-hover); transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+    box-shadow: 0 12px 32px rgba(17,24,39,0.08);
     border-color: rgba(15,118,110,0.2);
   }
   .exp-logo {
@@ -456,6 +542,9 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
     font-family: var(--mono); font-size: 11px;
     color: var(--text-faint); letter-spacing: 0.02em;
   }
+  .exp-summary {
+    margin-top: 8px; font-size: 13.5px; color: var(--text-mid); line-height: 1.65;
+  }
 
   /* ══════════ CONTACT ══════════ */
   .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
@@ -469,22 +558,45 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
     font-weight: 400; color: var(--text-faint); letter-spacing: 0.03em;
     margin-top: 16px; line-height: 1.6;
   }
-  .c-links { display: flex; flex-direction: column; gap: 8px; }
+  .c-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-start;
+  }
   .c-link {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 14px 18px; background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: var(--r-sm); text-decoration: none; color: var(--text);
-    transition: all 0.2s;
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 10px;
+    padding: 10px 14px; background: rgba(255,255,255,0.78); border: 1px solid var(--border);
+    border-radius: 999px; text-decoration: none; color: var(--text);
+    transition: all 0.2s; box-shadow: 0 8px 18px rgba(17,24,39,0.04);
+    transform: translate3d(0, var(--scroll-shift, 0px), 0);
+    min-height: 44px;
+  }
+  .c-link.in-view {
+    background: linear-gradient(180deg, rgba(101,146,135,0.05), rgba(255,255,255,0.84));
+    border-color: rgba(101,146,135,0.16);
   }
   .c-link:hover {
     border-color: var(--accent); background: var(--accent-soft);
-    transform: translateX(4px);
+    transform: translateY(-2px);
   }
-  .c-link .cl-label {
-    font-family: var(--mono); font-size: 11px; color: var(--text-faint);
-    letter-spacing: 0.05em;
+  .c-link-icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(181,101,29,0.11); color: var(--accent);
+    font-size: 13px; flex-shrink: 0;
+    font-weight: 700;
   }
-  .c-link .cl-val { font-size: 13px; font-weight: 500; color: var(--text-mid); }
+  .c-link-icon svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+  }
+  .c-link .cl-val {
+    font-size: 12.5px; font-weight: 600; color: var(--text-mid);
+    letter-spacing: -0.01em;
+  }
   .c-link:hover .cl-val { color: var(--text); }
 
   /* ══════════ FOOTER ══════════ */
@@ -530,6 +642,9 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
     footer { padding: 20px; flex-direction: column; gap: 4px; text-align: center; }
   }
 </style>
+<noscript>
+<style>.reveal { opacity: 1 !important; transform: none !important; }</style>
+</noscript>
 </head>
 <body>
 
@@ -541,7 +656,6 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
     <li><a href="#experience" onclick="mClose()">experience</a></li>
     <li><a href="#about" onclick="mClose()">about</a></li>
     <li><a href="#contact" onclick="mClose()">contact</a></li>
-    <li><a href="https://dhruvtrivedi.me/dhruv.pdf" target="_blank" class="nav-cta">résumé ↗</a></li>
   </ul>
   <button class="hamburger" id="hb" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
@@ -555,10 +669,9 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   <div class="hero-inner">
     <div>
       <h1>Dhruv</h1>
-      <p class="hero-sub">Backend engineering, machine learning, and systems that solve real-world problems.</p>
+      <p class="hero-sub">I build backend systems and applied ML products with a focus on reliability, speed, and practical engineering.</p>
       <div class="hero-btns">
         <a href="#work" class="btn btn-fill">View Projects →</a>
-        <a href="https://dhruvtrivedi.me/dhruv.pdf" target="_blank" class="btn btn-line">Resume ↗</a>
       </div>
     </div>
     <div class="hero-terminal">
@@ -587,7 +700,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
 <div class="stats-bar">
   <div class="stat-item">
     <div class="stat-num">15</div>
-    <div class="stat-label">projects worked on </div>
+    <div class="stat-label">projects worked on</div>
   </div>
   <div class="stat-item">
     <div class="stat-num">268k</div>
@@ -596,10 +709,6 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   <div class="stat-item">
     <div class="stat-num">7.3M</div>
     <div class="stat-label">AIS pings processed</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">3</div>
-    <div class="stat-label">packages on PyPI</div>
   </div>
 </div>
 
@@ -634,7 +743,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
         </div>
       </div>
       <div class="card-name">dvara</div>
-      <div class="card-desc">Malicious URL detection CLI on PyPI. Two-stage Bloom Filter pipeline ingests threat feeds from URLhaus, PhishTank, OpenPhish & Cert.pl — 268k URLs compressed into 5.14 MB with zero false negatives. Inspired by Google Safe Browsing.</div>
+      <div class="card-desc">PyPI malicious URL detection CLI with a two-stage Bloom Filter pipeline and 268k indexed URLs.</div>
       <div class="card-nums">
         <div class="card-num"><b>268,970</b><small>URLs indexed</small></div>
         <div class="card-num"><b>145k/s</b><small>throughput</small></div>
@@ -659,7 +768,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
         </div>
       </div>
       <div class="card-name">QueryMind</div>
-      <div class="card-desc">Natural language → SQL platform. Upload a CSV/XLSX/JSON, ask a question in plain English, get instant results. Two-stage RAG pipeline: ChromaDB retrieves schema + top-5 similar question→SQL pairs from ~2,000 Spider/WikiSQL examples, then Gemini 2.5 Flash remaps identifiers to your schema. All data loaded via PostgreSQL COPY protocol; every query cached in Redis and streamed to Kafka for audit. Results render as a formatted table or interactive Recharts chart.</div>
+      <div class="card-desc">Natural language to SQL platform that turns CSV, XLSX, and JSON data into instant queries and charts.</div>
       <div class="card-nums">
         <div class="card-num"><b>~2,000</b><small>RAG SQL examples</small></div>
         <div class="card-num"><b>78%</b><small>RAG-direct threshold</small></div>
@@ -684,7 +793,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
         </div>
       </div>
       <div class="card-name">FluxGate</div>
-      <div class="card-desc">Distributed rate limiter — 4 algorithms (token bucket, sliding window log/counter, leaky bucket) enforced atomically via Redis Lua. Hot config reload, live WebSocket dashboard.</div>
+      <div class="card-desc">Distributed rate limiter with Redis Lua enforcement, hot config reload, and live dashboarding.</div>
       <div class="card-nums">
         <div class="card-num"><b>4K+ RPS</b><small>load tested</small></div>
         <div class="card-num"><b>~12ms</b><small>p50 latency</small></div>
@@ -707,7 +816,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
         </div>
       </div>
       <div class="card-name">Exoplanet Atmospheric Retrieval</div>
-      <div class="card-desc">ML-based atmospheric retrieval from exoplanet transmission spectra. Benchmarks MLP, SVR, XGBoost on the Ariel Big Data Challenge + real JWST observations of WASP-39b. XGBoost generalizes where neural models collapse. Paper under review at <strong>Scientific Reports (Springer Nature)</strong>.</div>
+      <div class="card-desc">ML-based exoplanet atmospheric retrieval project benchmarked on Ariel and JWST data.</div>
       <div class="card-nums">
         <div class="card-num"><b>5</b><small>target gases</small></div>
         <div class="card-num"><b>JWST</b><small>validated against</small></div>
@@ -729,7 +838,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
         </div>
       </div>
       <div class="card-name">lostping</div>
-      <div class="card-desc">AIS vessel anomaly detection — flags ships going dark, loitering, or moving erratically. Targets sanctions evasion and illegal fishing. Interactive Folium map + scored JSON report.</div>
+      <div class="card-desc">AIS vessel anomaly detection that flags suspicious ship behavior and generates scored reports.</div>
       <div class="card-nums">
         <div class="card-num"><b>7.3M</b><small>pings processed</small></div>
         <div class="card-num"><b>4,621</b><small>vessels scored</small></div>
@@ -753,7 +862,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
         </div>
       </div>
       <div class="card-name">AMCNetV5</div>
-      <div class="card-desc">Classifies radio signals into 11 modulation types from raw IQ data. Physics-informed 1D CNN with CBAM attention. Beats the IEEE WCL 2020 MCLDNN baseline at high SNR (93% vs 90%).</div>
+      <div class="card-desc">Physics-informed 1D CNN for radio modulation classification from raw IQ data.</div>
       <div class="card-nums">
         <div class="card-num"><b>93.06%</b><small>high-SNR accuracy</small></div>
         <div class="card-num"><b>1.26M</b><small>parameters</small></div>
@@ -775,7 +884,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
         </div>
       </div>
       <div class="card-name">SybilGAT</div>
-      <div class="card-desc">Graph Attention Network for Twitter bot detection. Core finding: GAT attention weights suppress bot→human camouflage edges — statistically proven at p &lt; 10⁻⁴¹ via Mann-Whitney U test.</div>
+      <div class="card-desc">Graph Attention Network for bot detection with statistically validated attention behavior.</div>
       <div class="card-nums">
         <div class="card-num"><b>97.12%</b><small>accuracy</small></div>
         <div class="card-num"><b>p &lt; 10⁻⁴¹</b><small>significance</small></div>
@@ -797,7 +906,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
         </div>
       </div>
       <div class="card-name">rag-doc-qa</div>
-      <div class="card-desc">Upload any PDF, ask questions in plain English. Fully offline RAG via Ollama — no cloud APIs. Custom RAGAS-style eval harness tracks retrieval quality across experiments.</div>
+      <div class="card-desc">Fully offline PDF Q&A app using RAG and Ollama with evaluation tooling built in.</div>
       <div class="card-tags">
         <span class="t">LangChain</span><span class="t">Chroma</span><span class="t">Ollama</span>
         <span class="t">FastAPI</span><span class="t">Docker</span>
@@ -815,7 +924,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
         </div>
       </div>
       <div class="card-name">Real-Time IDS</div>
-      <div class="card-desc">BiLSTM-powered network intrusion detection. Live packet capture via tshark, classifies traffic into Normal, DoS, Probe, R2L, U2R on NSL-KDD. 99.16% accuracy, 0.83% FPR.</div>
+      <div class="card-desc">Real-time intrusion detection using BiLSTM models and live packet capture.</div>
       <div class="card-nums">
         <div class="card-num"><b>99.16%</b><small>accuracy</small></div>
         <div class="card-num"><b>0.83%</b><small>false positive rate</small></div>
@@ -838,7 +947,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
         </div>
       </div>
       <div class="card-name">jot</div>
-      <div class="card-desc">Clipboard history manager for the terminal. Tracks text + images, deduplicates by content hash, background daemon, dead-simple CLI. On PyPI.</div>
+      <div class="card-desc">Terminal clipboard history manager for text and images, published on PyPI.</div>
       <div class="card-tags">
         <span class="t">Python</span><span class="t">SQLite</span><span class="t">PyPI</span>
         <span class="t">click</span><span class="t">rich</span>
@@ -857,7 +966,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
         </div>
       </div>
       <div class="card-name">waitpal</div>
-      <div class="card-desc">Passive terminal companion — shows witty one-liners in your PowerShell. 1000+ original entries: fake facts, Indian observations, shower thoughts. 70% believable, 30% nonsense.</div>
+      <div class="card-desc">Passive terminal companion for PowerShell with witty one-liners and original text.</div>
       <div class="card-tags">
         <span class="t">Python</span><span class="t">PowerShell</span><span class="t">PyPI</span>
       </div>
@@ -907,6 +1016,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
             <span class="exp-date">July 2026 – present</span>
           </div>
         </div>
+        <p class="exp-summary">Building reliable backend systems with a focus on thoughtful implementation, performance, and clean execution.</p>
       </div>
     </div>
   </div>
@@ -921,18 +1031,10 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
 
   <div class="about-grid">
     <div class="about-text reveal">
-      <p>
-        I'm <strong>Dhruv</strong>, a third year Information Science student at
-        <strong>BMS College of Engineering, Bangalore</strong>.
-      </p>
-      <p>I build systems that turn ML ideas into production-ready tools across backend systems, probabilistic data structures, and applied ML.</p>
-      <p>
-        My favorite kind of problem is the one where you need to understand the math
-        <em>and</em> make the system fast.
-      </p>
+      <p>I'm <strong>Dhruv</strong>, a third-year Information Science student at <strong>BMS College of Engineering, Bangalore</strong>.</p>
+      <p>I build backend systems and applied ML products with a bias toward reliability, measurable impact, and clean execution.</p>
       <div style="margin-top: 24px; display: flex; gap: 10px; flex-wrap: wrap;">
         <a href="#contact" class="btn btn-fill">get in touch →</a>
-        <a href="https://dhruvtrivedi.me/dhruv.pdf" target="_blank" class="btn btn-line">résumé ↗</a>
       </div>
     </div>
 
@@ -982,29 +1084,33 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
     <div class="reveal">
       <h2 class="contact-big">
         Let's<br><span class="a">talk</span><br>
-        <span class="sub">Currently an intern.<br>Always open to interesting engineering conversations.</span>
+        <span class="sub">Internship and full-time opportunities.<br>Open to thoughtful engineering work.</span>
       </h2>
+      <div style="margin-top: 24px;">
+        <a href="https://dhruvtrivedi.me/dhruv.pdf" target="_blank" class="btn btn-resume">résumé ↗</a>
+      </div>
     </div>
     <div class="c-links reveal">
-      <a href="mailto:dhruvh0530@gmail.com" class="c-link">
-        <span class="cl-label">email</span>
-        <span class="cl-val">dhruvh0530@gmail.com</span>
+      <a href="mailto:dhruvh0530@gmail.com" class="c-link" aria-label="Email">
+        <span class="c-link-icon">✉</span>
+        <span class="cl-val">Email</span>
       </a>
-      <a href="https://github.com/dhruv-0512" target="_blank" class="c-link">
-        <span class="cl-label">github</span>
-        <span class="cl-val">dhruv-0512 ↗</span>
+      <a href="https://github.com/dhruv-0512" target="_blank" class="c-link" aria-label="GitHub">
+        <span class="c-link-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
+            <circle cx="12" cy="12" r="12" fill="#111111"></circle>
+            <path fill="#ffffff" d="M12 .297C5.372.297 0 5.668 0 12.304c0 5.292 3.438 9.771 8.205 11.362.6.111.82-.261.82-.58v-2.234c-3.338.726-4.033-1.415-4.033-1.415-.545-1.387-1.333-1.757-1.333-1.757-1.089-.744.083-.729.083-.729 1.205.085 1.84 1.237 1.84 1.237 1.07 1.838 2.809 1.307 3.495 1.001.108-.775.419-1.307.763-1.607-2.665-.306-5.467-1.346-5.467-5.984 0-1.323.469-2.405 1.236-3.252-.124-.303-.536-1.523.117-3.176 0 0 1.008-.322 3.301 1.24.957-.266 1.983-.399 3.003-.404 1.021.005 2.047.138 3.004.404 2.292-1.562 3.299-1.24 3.299-1.24.653 1.653.242 2.873.119 3.176.77.847 1.234 1.929 1.234 3.252 0 4.65-2.807 5.676-5.479 5.977.43.371.823 1.102.823 2.222v3.293c0 .322.219.694.828.576C20.565 22.07 24 17.595 24 12.304 24 5.668 18.627.297 12 .297z"></path>
+          </svg>
+        </span>
+        <span class="cl-val">GitHub</span>
       </a>
-      <a href="https://www.linkedin.com/in/dhruv-trivedi-3005d/" target="_blank" class="c-link">
-        <span class="cl-label">linkedin</span>
-        <span class="cl-val">dhruv-trivedi-3005d ↗</span>
+      <a href="https://www.linkedin.com/in/dhruv-trivedi-3005d/" target="_blank" class="c-link" aria-label="LinkedIn">
+        <span class="c-link-icon">in</span>
+        <span class="cl-val">LinkedIn</span>
       </a>
-      <a href="https://pypi.org/user/dhruv3vedi/" target="_blank" class="c-link">
-        <span class="cl-label">pypi</span>
-        <span class="cl-val">dhruv3vedi ↗</span>
-      </a>
-      <a href="https://dhruvtrivedi.me/dhruv.pdf" target="_blank" class="c-link">
-        <span class="cl-label">résumé</span>
-        <span class="cl-val">download PDF ↗</span>
+      <a href="https://dhruvtrivedi.me/dhruv.pdf" target="_blank" class="c-link" aria-label="Resume">
+        <span class="c-link-icon">↗</span>
+        <span class="cl-val">Resume</span>
       </a>
     </div>
   </div>
@@ -1191,7 +1297,26 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
 
   // nav scroll
   const nav = document.getElementById('nav');
-  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 30));
+  const hero = document.querySelector('.hero');
+
+  function updateScrollEffects() {
+    const scrollY = window.scrollY;
+    const heroOffset = Math.max(-24, Math.min(24, scrollY * 0.05));
+    document.documentElement.style.setProperty('--hero-shift', `${heroOffset}px`);
+    document.documentElement.style.setProperty('--scroll-shift', `${Math.max(-10, Math.min(10, scrollY * 0.015))}px`);
+
+    if (nav) nav.classList.toggle('scrolled', scrollY > 30);
+
+    document.querySelectorAll('.stat-item, .card, .exp-card, .cur-card, .c-link').forEach((el, i) => {
+      const depth = 0.01 + (i % 5) * 0.003;
+      const shift = Math.max(-8, Math.min(8, scrollY * depth));
+      el.style.setProperty('--scroll-shift', `${shift}px`);
+    });
+  }
+
+  addEventListener('scroll', updateScrollEffects, { passive: true });
+  addEventListener('resize', updateScrollEffects);
+  updateScrollEffects();
 
   // mobile
   const hb = document.getElementById('hb');
@@ -1223,15 +1348,31 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   })();
 
   // reveal
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('vis'), (i % 6) * 50);
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.06 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  (function() {
+    const revealEls = document.querySelectorAll('.reveal, .stat-item, .card, .exp-card, .cur-card, .c-link, .hero-terminal');
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('vis'), (i % 6) * 50);
+          if (e.target.classList.contains('card') || e.target.classList.contains('stat-item') || e.target.classList.contains('exp-card') || e.target.classList.contains('cur-card') || e.target.classList.contains('c-link') || e.target.classList.contains('hero-terminal')) {
+            e.target.classList.add('in-view');
+          }
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.06 });
+
+    revealEls.forEach(el => obs.observe(el));
+
+    // Safety net: force-reveal anything still hidden after 2.5s
+    // (covers observer failures, prerender/capture tools, edge cases)
+    setTimeout(() => {
+      revealEls.forEach(el => {
+        if (!el.classList.contains('vis')) el.classList.add('vis');
+      });
+    }, 2500);
+  })();
 
   // smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
