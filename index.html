@@ -69,6 +69,21 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
     pointer-events: none;
   }
 
+  #dot-field-hero {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: 100vw;
+    z-index: 1;
+    pointer-events: auto;
+    overflow: visible;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.85) 65%, rgba(0,0,0,1) 100%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.85) 65%, rgba(0,0,0,1) 100%);
+  }
+
   nav, section, .stats-bar, .divider, footer { position: relative; z-index: 1; }
   .hero h1 { color: var(--text) !important; }
   .hero .hero-sub { color: var(--text-soft) !important; }
@@ -150,7 +165,7 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   /* HERO */
   .hero {
     min-height: 100vh; display: flex; align-items: center;
-    padding: 112px 48px 86px; position: relative; overflow: hidden;
+    padding: 112px 48px 86px; position: relative; overflow: visible;
     background: transparent;
   }
   .hero-bg-pattern {
@@ -204,17 +219,20 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
   .hero h1 {
     font-size: clamp(56px, 7.5vw, 96px); font-weight: 800;
     line-height: 0.9; letter-spacing: -0.04em; margin-bottom: 18px;
+    text-shadow: 0 2px 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(255, 255, 255, 0.7);
   }
 
   .hero-value {
     font-size: clamp(20px, 2.6vw, 28px); font-weight: 700;
     color: var(--text); line-height: 1.18; letter-spacing: -0.02em;
     margin-bottom: 10px;
+    text-shadow: 0 1px 12px rgba(255, 255, 255, 0.85);
   }
 
   .hero-sub {
     font-size: 16px; color: var(--text-mid); max-width: 540px;
     line-height: 1.7; margin-bottom: 24px;
+    text-shadow: 0 1px 10px rgba(255, 255, 255, 0.85);
   }
 
   .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -757,6 +775,8 @@ content="Dhruv H is a Backend and Machine Learning Engineer building distributed
 
 <!-- HERO -->
 <section class="hero">
+  <!-- DotField interactive background -->
+  <div id="dot-field-hero" aria-hidden="true"></div>
   <div class="hero-bg-pattern"></div>
   <div class="hero-glow-left"></div>
   <div class="hero-glow-right"></div>
@@ -1513,6 +1533,33 @@ void main() {
   }
   requestAnimationFrame(frame);
 })();
+</script>
+
+<!-- DotField: pure Canvas 2D, no dependencies -->
+<script type="module">
+try {
+  const { initDotField } = await import('./src/components/DotField.js');
+  const container = document.getElementById('dot-field-hero');
+  if (!container) { console.error('[DotField] container not found'); }
+  else {
+    initDotField(container, {
+      dotRadius:     3,
+      dotSpacing:    12,
+      cursorRadius:  500,
+      bulgeOnly:     true,
+      bulgeStrength: 80,
+      glowRadius:    200,
+      sparkle:       false,
+      waveAmplitude: 0,
+      gradientFrom:  'rgba(101, 146, 135, 0.9)',
+      gradientTo:    'rgba(136, 189, 164, 0.65)',
+      glowColor:     'rgba(101, 146, 135, 0.18)',
+    });
+    console.log('[DotField] mounted successfully');
+  }
+} catch (err) {
+  console.error('[DotField] init failed:', err);
+}
 </script>
 </body>
 </html>
