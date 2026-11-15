@@ -10,14 +10,16 @@ export default function Clock() {
   const [time, setTime] = useState<string>("--:--:--");
 
   useEffect(() => {
+    const formatter = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Kolkata",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hourCycle: "h23",
+    });
+
     function tick() {
-      const now = new Date();
-      // ist = utc + 5:30
-      const ist = new Date(now.getTime() + (now.getTimezoneOffset() + 330) * 60000);
-      const hh = String(ist.getUTCHours()).padStart(2, "0");
-      const mm = String(ist.getUTCMinutes()).padStart(2, "0");
-      const ss = String(ist.getUTCSeconds()).padStart(2, "0");
-      setTime(`${hh}:${mm}:${ss}`);
+      setTime(formatter.format(new Date()));
     }
     tick();
     const id = setInterval(tick, 1000);
