@@ -15,9 +15,6 @@ export const metadata: Metadata = {
   description: "backend & ml. bangalore.",
   keywords: ["dhruv", "software engineer", "backend", "machine learning", "distributed systems"],
   authors: [{ name: "dhruv" }],
-  icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
-  },
   openGraph: {
     title: "dhruv",
     description: "backend & ml. bangalore.",
